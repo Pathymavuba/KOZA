@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const passport = require('passport')
 
 exports.signUp = (req,res)=>{
     bcrypt.hash(req.body.password,10)
@@ -58,21 +59,14 @@ exports.logIn = (req,res)=>{
                 }
 
                const token =  jwt.sign(payload,'RANDOM_TOKEN_SECRET',{expiresIn : '24h'})
-              res.status(200).json({
+             return  res.status(200).json({
                  payload: payload,
                  success:true,
                  message:"logged in successfully",
                  token: "Bearer " + token
                })
 
-            // res.status(200).json({
-            //     userId:user._id,
-            //     token: jwt.sign(
-            //         {userId:user._id},
-            //         'RANDOM_TOKEN_SECRET',
-            //         {expiresIn:'24h'} ,
-            //     )
-            // })
+        
 
             })
             .catch(err=>res.status(500).json({message:err}))
@@ -82,6 +76,13 @@ exports.logIn = (req,res)=>{
     
 }
 
-exports.logOut= (req,res)=>{
-    
+//verification du token avec passport
+exports.protected= passport.authenticate('jwt',{session:false}),(req,res)=>{
+   return res.status(200).json({
+        success:true,
+        user:{
+            id:req.user._id,
+            username:req.user.username
+        }
+    })
 }
