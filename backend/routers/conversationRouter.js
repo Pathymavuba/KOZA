@@ -4,6 +4,8 @@ const router = express.Router()
 
 const conversationController = require('../controllers/conversationController')
 
-router.post('/conversation',conversationController.createConversation)
+router.post('/createConversation',conversationController.createConversation)
+router.get('/:userId',conversationController.userConversation)
+router.get('/find/:firstId/:secondId',conversationController.findConversation)
 
 module.exports = router

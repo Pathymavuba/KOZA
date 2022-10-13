@@ -19,7 +19,6 @@ exports.signUp = (req,res)=>{
                 user:{
                     id: user._id,
                     username: user.username,
-                    profile: user.profile
                 }
             })
         })

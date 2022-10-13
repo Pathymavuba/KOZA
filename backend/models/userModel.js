@@ -9,9 +9,6 @@ userSchema = mongoose.Schema({
     password:{
         type:String,
         required:true
-    },
-    profil:{
-        type:String,
     }
 })
 

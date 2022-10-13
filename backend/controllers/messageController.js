@@ -1,27 +1,17 @@
 const Message = require('../models/messageModel')
 
-exports.sendMessage = (req,res)=>{
-    const message = new Message({
-        conversation: req.body.conersation,
-        messageText:req.body.messageText,
-        messageImage:req.body.messageImage,
-        sender:req.body.sender,
-        recipient:req.body.recipient
-
-    })
+exports.addMessage = (req,res)=>{
+    const {conversationId,text,senderId}=req.body
+    const message = new Message({conversationId,text,senderId})
     message.save()
-     .then(()=>{
+     .then((result)=>{
         console.log("message envoyé");
-        res.status(200).json({
-            success: true,
-            message: "message envoyé",
-            message:{
-                id: message._id,
-                messageText: message.messageText,
-                mesageImage: message.mesageImage,
-                sender: message.sender,
-                recipient:message.recipient
-            }
-        })})
-    .catch(err=>{res.status(501).json({error:err})})
+        res.status(200).json(result)})
+    .catch(err=>{res.status(500).json({error:err})})
+}
+exports.getMessages = (req,res)=>{
+    const {conversationId}=req.params;
+    Message.find({conversationId})
+    .then(result=>res.status(200).json(result))
+    .catch(err=>{res.status(500).json({error:err})})
 }
