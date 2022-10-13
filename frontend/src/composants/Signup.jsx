@@ -1,22 +1,45 @@
 import React from 'react'
 import '../styles/signup.css'
+import { Link } from 'react-router-dom'
+import  axios from 'axios'
+import { useContext } from 'react'
+import { myContext } from '../Mycontext'
 
-const signup = () => {
+const Signup = () => {
+
+  const {username,setUsername,password,setPassword}=useContext(myContext)
+
+  const createuser_url = 'http://localhost:4200/koza/signup'
+
+  const createUser = (e)=>{
+    e.preventDefault();
+    axios.post(createuser_url, {
+      username: username,
+      password: password
+    })
+    .then(()=>console.log("user created"))
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+ 
+
   return (
     <div className='login'>
     
         <div className='card_login'>
-           <form action="" method=''>
+           <form >
           
-            <input type="text" placeholder='username'/>
+            <input type="text" placeholder='username' onChange={(e)=>setUsername(e.target.value)}/>
           
          
-            <input type="password" placeholder='password'/>
+            <input type="password" placeholder='password'  onChange={(e)=>setPassword(e.target.value)}/>
          
           
-            <input type="button" className='btn-signup' value='signup'/>
+            <input  onClick={createUser} type="button" className='btn-signup' value='signup'/>
 
-            <h5>click here to create a new account</h5>
+          <Link to="/login"> <h5>click here to login</h5> </Link>  
           
           
 
@@ -27,4 +50,4 @@ const signup = () => {
   )
 }
 
-export default signup
+export default Signup

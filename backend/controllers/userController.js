@@ -2,6 +2,7 @@ const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
+const express = require('express')
 
 exports.signUp = (req,res)=>{
     bcrypt.hash(req.body.password,10)
@@ -17,7 +18,8 @@ exports.signUp = (req,res)=>{
                 message: "User added successfully",
                 user:{
                     id: user._id,
-                    username: user.username
+                    username: user.username,
+                    profile: user.profile
                 }
             })
         })
@@ -55,17 +57,17 @@ exports.logIn = (req,res)=>{
                 //correct password
                 const payload = {
                     username: user.username,
-                    id:user._id
+                    id:user._id,
+                    profile: user.profile
                 }
 
-               const token =  jwt.sign(payload,'RANDOM_TOKEN_SECRET',{expiresIn : '24h'})
+               const token =  jwt.sign(payload,'RANDOM_TOKEN_SECRET',{expiresIn : '1d'})
              return  res.status(200).json({
                  payload: payload,
                  success:true,
                  message:"logged in successfully",
                  token: "Bearer " + token
                })
-
         
 
             })
@@ -76,13 +78,17 @@ exports.logIn = (req,res)=>{
     
 }
 
-//verification du token avec passport
-exports.protected= passport.authenticate('jwt',{session:false}),(req,res)=>{
-   return res.status(200).json({
+// verification du token avec passport
+exports.protected= (passport.authenticate('jwt',{session:false}),
+(req,res)=>{
+   res.status(200).json({
         success:true,
-        user:{
-            id:req.user._id,
-            username:req.user.username
-        }
+        message:"token validé"
+        // user : {
+        //     id : req.user._id,
+        //     username : req.user.username
+        // }
     })
-}
+})
+
+   
