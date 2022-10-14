@@ -57,10 +57,10 @@ exports.logIn = (req,res)=>{
                 const payload = {
                     username: user.username,
                     id:user._id,
-                    profile: user.profile
                 }
 
-               const token =  jwt.sign(payload,'RANDOM_TOKEN_SECRET',{expiresIn : '1d'})
+                require('dotenv').config()
+               const token =  jwt.sign(payload,process.env.SECRET_KEY,{expiresIn : '1d'})
              return  res.status(200).json({
                  payload: payload,
                  success:true,
@@ -76,18 +76,3 @@ exports.logIn = (req,res)=>{
      .catch(err=>res.status(500).json({message:err}))
     
 }
-
-// verification du token avec passport
-exports.protected= (passport.authenticate('jwt',{session:false}),
-(req,res)=>{
-   res.status(200).json({
-        success:true,
-        message:"token validé"
-        // user : {
-        //     id : req.user._id,
-        //     username : req.user.username
-        // }
-    })
-})
-
-   

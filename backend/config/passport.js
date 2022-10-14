@@ -4,7 +4,8 @@ const opts = {}
 const User = require('../models/userModel.js')
 const passport = require('passport');
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'RANDOM_TOKEN_SECRET';
+require('dotenv').config()
+opts.secretOrKey = process.env.SECRET_KEY;
 
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     console.log(jwt_payload);

@@ -1,34 +1,34 @@
 const Conversation = require('../models/conversationModel')
 
-// exports.createConversation = (req,res, next)=>{
-//     const conversation = new Conversation({
-//         $push:{user : req.body.user}
-//     })
-//     conversation.save()
-//     .then(()=>{
-//         console.log("conversation enregistrée");
-//         res.status(200).json({
-//             success: true,
-//             message: "conversation enregistrée",
-//             conversation:{
-//                 id: conversation._id,
-//                 message:conversation.message,
-//                 user: conversation.user
-//             }
-//         })})
-//     .catch(err=>{res.status(501).json({error:err})})
-// }
 exports.createConversation = (req, res) => {
-    const conversation = new Conversation({
-        members:[req.body.senderId,req.body.receiverId]
+ 
+    const {members} = req.body
+    Conversation.findOne({
+        members:{$all:[...members]}
     })
-    conversation.save()
-    .then((result)=>{
-                console.log("conversation enregistrée");
-                res.status(200).json({result}) })
- .catch((error)=>res.status(500).json({error: error}))
-}
+    .then(data=>{
+        if(data!==null){
+            res.status(200).json({message:"conversationexists"})
+        }
+        else{
+            const conversation = new Conversation({
+                members:[...members]
+                // members:{$or:[{sender:req.body.senderId,receiver:req.body.receiverId},{sender:req.body.receiverId,receiver:req.body.senderId}]}
+            })
+            conversation.save()
+        .then((result)=>{
+                    console.log("conversation enregistrée");
+                    res.status(200).json({result}) })
+     .catch((error)=>res.status(500).json({error: error}))
+        }
+            
+        }
+     )
 
+ .catch((error)=>res.status(500).json({error: error}))
+   
+    
+}
 
 exports.userConversation = (req,res, next)=>{
     Conversation.find({
@@ -38,9 +38,14 @@ exports.userConversation = (req,res, next)=>{
     .catch(err=>{res.status(500).json({error:err})})
 }
 exports.findConversation = (req,res)=>{
+    const {members} = req.params
     Conversation.findOne({
         members:{$all:[req.params.firstId,req.params.secondId]}
+
+        // members:{$or:[{sender:req.params.firstId,receiver:req.params.secondId},{sender:req.params.secondId,receiver:req.params.firstId}]}
     })
+        
+    
     .then(conversation =>res.status(200).json(conversation))
-    .catch(err=>{res.status(500).json({error:err})})
+    .catch(err=>{res.status(500).json({error:err,message:"impossible de trouver la conversation"})})
 }
