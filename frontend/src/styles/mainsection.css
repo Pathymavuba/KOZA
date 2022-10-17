@@ -1,0 +1,97 @@
+:root{
+    --blue : #1966ff;
+    --jaune:#fee926;
+    /* --black: #130f40; */
+    --light-color:#666;
+    --box-shadow:0 1.5rem 1rem rgba(0,0,0,.1);
+    /* --box-shadow:0 .5rem 1rem rgba(0,0,0,1); */
+    --border:.2rem solid rgba(0,0,0,0.1);
+    --outiline:0.1rem solid rgba(0,0,0,0.1);
+    --outiline-hover:.2rem solid var(--black);
+}
+.mainsection{
+    background:none;
+    margin-top: 2rem;
+    margin-left: 2.1rem;
+    height: 100vh;
+    width: 30%;
+    border-radius:1.5rem;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.seachbar{
+    width: 100%;
+    height: 4rem;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items:center;
+    box-shadow:var(--box-shadow);
+    border-radius: 1rem;
+}
+
+.seachbar input{
+    height: 100%;
+    width: 90%;
+    background: none;
+    text-transform: none;
+    font-size:1.6rem;
+    color: var(--black);
+    padding: 0 1.5rem;
+    margin-left: .2rem;
+    outline: none;
+    border: none;
+
+}
+.seachbar label .icone-search{
+    font-size:2.5rem;
+    color: var(--black);
+    cursor:pointer;
+    margin-left: 1rem;
+}
+.listmessage{
+    width: 100%;
+    height:52.5rem;
+    background:#fff ;
+    border-radius: 1rem;
+    margin-top:2rem;
+    box-shadow:var(--box-shadow);
+    overflow-y:auto
+    
+}
+.titre-recent{
+    width:100%;
+    padding: .7rem 1.5rem;
+
+}
+.info-message{
+    margin-top:1rem;
+}
+.profile-message{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    width:100%;
+    gap:.6rem;
+    
+    padding-left:1.5rem;
+    
+}
+.profile-message img{
+    width:60px;
+    height:60px;
+    border-radius:50px;
+    box-shadow: 0.5 .5rem 1rem rgba(0,0,0,.1);;
+}
+
+.profile-message .username{
+    padding-top:1rem;
+}
+.bordure{
+    width:37rem;
+    border-bottom:var(--outiline);
+    margin-left:2rem;
+    margin-top: 1rem;
+}

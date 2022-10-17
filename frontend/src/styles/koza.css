@@ -1,0 +1,27 @@
+*{
+    font-size: 10px;
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+  }
+  .koza{
+    background:#eaeaea;
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+    height: 100vh;
+    overflow-y:hidden
+  }
+
+:root{
+    --blue : #1966ff;
+    --jaune:#fee926;
+    /* --black: #130f40; */
+    --light-color:#666;
+    --box-shadow:0 1.5rem 1rem rgba(0,0,0,.1);
+    /* --box-shadow:0 .5rem 1rem rgba(0,0,0,1); */
+    --border:.2rem solid rgba(0,0,0,0.1);
+    --outiline:0.1rem solid rgba(0,0,0,0.1);
+    --outiline-hover:.2rem solid var(--black);
+
+}

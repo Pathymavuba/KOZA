@@ -39,7 +39,7 @@ const Login = () => {
            
           
             
-            <Link to="/"> <h5>click here to create a new account</h5> </Link> 
+            <Link to="/accueil"> <h5>click here to create a new account</h5> </Link> 
 
            </form>
 

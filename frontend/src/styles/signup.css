@@ -43,12 +43,12 @@ input{
 input[type="text"]{
     font-size:1.5rem;
     padding:1rem;
-    outline-color:#eaeaea;
+    outline-color:var(--blue);
 }
 input[type="password"]{
     font-size:1.5rem;
     padding:1rem;
-    outline-color:#eaeaea;
+    outline-color:var(--blue);
 }
 input[type="button"]{
     font-size:1.5rem;

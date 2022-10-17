@@ -1,0 +1,107 @@
+:root{
+    --blue : #1966ff;
+    --jaune:#fee926;
+    --light-color:#666;
+    --box-shadow:0 1.5rem 1rem rgba(0,0,0,.1);
+    --border:.2rem solid rgba(0,0,0,0.1);
+    --outiline:0.1rem solid rgba(0,0,0,0.1);
+    --outiline-hover:.2rem solid var(--black);
+}
+.conversation{
+    background:#fff;
+    margin-top: 2rem;
+    margin-left: 2.1rem;
+    height: 93vh;
+    width:53%;
+    border-radius:1.5rem;
+    box-shadow:var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+}
+.profile-conversation{
+    display:flex;
+    flex-direction:row;
+    margin-top:2rem;
+    margin-left: 2.5rem;
+    width:100%;
+    gap:1rem;
+    
+}
+.profile-conversation img{
+    width:70px;
+    height:70px;
+    border-radius:50px;
+    box-shadow: 0.5 .5rem 1rem rgba(0,0,0,.1);;
+}
+.name-receiver{
+    padding-top:1.5rem;
+    align-items: center;
+    margin-left:18rem;
+}
+.bottom{
+    margin-top: 1rem;
+    margin-left: 3rem;
+    width:90%;
+    border-bottom: var(--outiline);
+}
+.discussion{
+    width: 100%;
+    margin-top:.3rem;
+    height: auto;
+}
+.bottom-last{
+     width:50%;
+        position:fixed;
+        top:50rem;
+        z-index: 10000;
+        left:64rem;
+        border-bottom: var(--outiline);
+}
+.send-message{
+    width:50%;
+    position:fixed;
+    top:53rem;
+    z-index: 10000;
+    left:64.2rem;
+    display: flex;
+    flex-direction:row;
+}
+.send-text{
+    background: #eaeaea;
+    width: 80%;
+    overflow: hidden;
+    display: flex;
+    align-items:center;
+    border-radius:.5rem;
+}
+.send-text input{
+    width: 90%;
+    background: none;
+    text-transform: none;
+    font-size:1.6rem;
+    color: var(--black);
+    outline: none;
+    border: none;
+}
+.send-text .icon-camera{
+    font-size:2.5rem;
+    color: var(--black);
+    cursor:pointer;
+    margin-left: 1rem;
+}
+.icon-send{
+    background: var(--blue);
+    width:9%;
+    margin-left: 7rem;
+    border-radius:.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon-send .send{
+    font-size:2.2rem;
+    color: #ffff;
+    cursor:pointer;
+    margin-left: 1rem;
+
+}

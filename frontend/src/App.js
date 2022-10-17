@@ -5,9 +5,14 @@ import './App.css'
 import {Routes,Route} from 'react-router-dom'
 import AccueilPage from './composants/AccueilPage'
 import { myContext } from './Mycontext'
+import Koza from './composants/Koza'
+import Mainsection from './composants/Mainsection'
+import Contact from './composants/Contact'
 
 const App = () => {
 
+
+  
 
   const [username,setUsername]=useState("")
   const [password,setPassword] = useState("") 
@@ -18,10 +23,15 @@ const App = () => {
 <myContext.Provider value={{username,setUsername,password,setPassword}}>
 
 <Routes>
-   <Route path="/" element={<AccueilPage/>}> 
-      <Route path="/" element={<Signup/>} />
-      <Route path="/login" element={<Login/>} />
+   <Route path="/accueil" element={<AccueilPage/>}> 
+      <Route path="/accueil" element={<Signup/>} />
+      <Route path="/accueil/login" element={<Login/>} />
    </Route> 
+   <Route path="/accueil/koza" element={<Koza/>} >
+         <Route path="/accueil/koza" element={<Mainsection/>} />
+         <Route path="/accueil/koza/allusers" element={<Contact/>} />
+ 
+   </Route>
       
          
    </Routes>
