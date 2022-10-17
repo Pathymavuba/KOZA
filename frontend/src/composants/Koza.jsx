@@ -5,10 +5,11 @@ import Conversation from './Conversation'
 import { Outlet } from 'react-router-dom'
 
 
-const Koza = () => {
+const Koza = ({logout}) => {
+
   return (
-    <div className='koza'>
-      <Leftsection />
+    <div className='koza' >
+      <Leftsection  logout={logout}/>
       <Outlet />
       <Conversation />
     </div>

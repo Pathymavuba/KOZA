@@ -1,5 +1,6 @@
 const Message = require('../models/messageModel')
 
+
 exports.addMessage = (req,res)=>{
     const {conversationId,text,senderId}=req.body
     const message = new Message({conversationId,text,senderId})

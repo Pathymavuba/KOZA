@@ -7,8 +7,9 @@ import { IoLogOut} from "react-icons/io5";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Leftsection = () => {
+const Leftsection = ({logout}) => {
 
+ 
   const [list,setList]=useState("message")
   return (
     <div className='leftsection-body'>
@@ -29,7 +30,7 @@ const Leftsection = () => {
           {list==="user"&& <span className='barre'></span>}
         </div>
         <div className="btn_logout">
-          <IoLogOut className='icones'/>
+          <IoLogOut className='icones' onClick={logout}/>
         </div>
         
     </div>

@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom'
 import  axios from 'axios'
 import { useContext } from 'react'
 import { myContext } from '../Mycontext'
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+
+  const navigate = useNavigate()
 
   const {username,setUsername,password,setPassword}=useContext(myContext)
 
@@ -17,7 +20,9 @@ const Signup = () => {
       username: username,
       password: password
     })
-    .then(()=>console.log("user created"))
+    .then(()=>{
+      navigate("/accueil/login")
+      console.log("user created")})
     .catch(function (error) {
       console.log(error);
     });
