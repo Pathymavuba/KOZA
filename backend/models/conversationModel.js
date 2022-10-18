@@ -1,9 +1,10 @@
 const mongoose = require('../config/db_connection')
 
 const conversationSchema = mongoose.Schema({
-    // message:[{type:mongoose.Schema.Types.ObjectId,ref:'message'}],
-    // user:[{type:mongoose.Schema.Types.ObjectId,ref:'user'}],
-    members: { type: Array },
+
+    members:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}],
+    receiverId:{type:mongoose.Schema.Types.ObjectId,ref:'User'}
+    // members: { type: Array },
     
 }, { timestamps: true })
 

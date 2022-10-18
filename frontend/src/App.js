@@ -9,6 +9,7 @@ import Koza from './composants/Koza'
 import Mainsection from './composants/Mainsection'
 import Contact from './composants/Contact'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const App = () => {
 
@@ -17,26 +18,41 @@ const App = () => {
   const [password,setPassword] = useState("") 
   const [token,setToken]= useState("")
   const [users,setUsers]=useState([])
+  const [userId,setUserId]=useState("")
+  const [conversationRecent,setConversationRecent]=useState([])
+  const [otherId,setOtherId]=useState("")
+  const [conversationId,setConversationId]=useState("")
+  const [message,setMessage]=useState([])
+  
+  
 
+
+
+  
+  
+     
   const navigate = useNavigate()
+  console.log(conversationId)
 
   useEffect(()=>{
     console.log("ton token",token)
     setToken(localStorage.getItem("token"))
+    setUserId(localStorage.getItem("userId"))
   },[token])
 
   const logout = ()=>{
      //se deconnecter
     setToken("")
     window.localStorage.removeItem("token")
+    window.localStorage.removeItem("userId")
     navigate("/accueil/login")
   }
 
   return (
-    <div className='App' logout={logout}>
+    <div className='App' >
 
  
-<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers}}>
+<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage}}>
 
 <Routes>
    <Route path="/accueil" element={<AccueilPage/>}> 
@@ -44,7 +60,7 @@ const App = () => {
       <Route path="/accueil/login" element={<Login/>} />
    </Route> 
    <Route path="/accueil/koza" element={<Koza logout={logout}/>} >
-         <Route path="/accueil/koza" element={<Mainsection/>} />
+         <Route path="/accueil/koza" element={<Mainsection  />} />
          <Route path="/accueil/koza/allusers" element={<Contact/>} />
  
    </Route>

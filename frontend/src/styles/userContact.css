@@ -1,0 +1,23 @@
+.info-contact{
+    margin-top:1rem;
+    cursor: pointer;
+}
+.profile-contact{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    width:100%;
+    gap:.6rem;
+    padding-left:1.5rem;
+    
+}
+
+.profile-message .username{
+    padding-top:1rem;
+}
+.bordure{
+    width:37rem;
+    border-bottom:var(--outiline);
+    margin-left:2rem;
+    margin-top: 1rem;
+}

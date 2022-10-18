@@ -44,11 +44,43 @@
     width:90%;
     border-bottom: var(--outiline);
 }
+/* conversation-bODY */
 .discussion{
     width: 100%;
     margin-top:.3rem;
-    height: auto;
+    height:63%;
+    padding: 15px 0px;
+    overflow-y:auto
 }
+
+.messagesended {
+    margin-left: 58%;
+}
+.messagereceived{
+    margin-left: 2%;
+}
+.messagereceived, .messagesended {
+    max-width: 40%;
+    min-width: 25%;
+    margin-bottom: 10px;
+}
+.messagereceived .message,
+.messagesended .message {
+    background: rgb(226, 226, 226);
+    border-radius: 10px;
+    padding: 10px;
+    font-size:1.4rem;
+}
+.messagesended .message {
+    background: var(--blue);
+    color: white;
+}
+.discussion .timestamp {
+    color: rgb(182, 182, 182);
+    font-size: .80rem;
+}
+
+
 .bottom-last{
      width:50%;
         position:fixed;

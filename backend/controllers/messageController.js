@@ -13,6 +13,7 @@ exports.addMessage = (req,res)=>{
 exports.getMessages = (req,res)=>{
     const {conversationId}=req.params;
     Message.find({conversationId})
+    .populate({path:'conversationId', select:'members'})
     .then(result=>res.status(200).json(result))
     .catch(err=>{res.status(500).json({error:err})})
 }

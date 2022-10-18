@@ -88,9 +88,9 @@ exports.getUsers=(req,res)=>{
      .catch(err=>res.status(500).json({message:err}))
 }
 
-// exports.getUser=(req,res)=>{
-//    User.findById({id:req.params.id})
+exports.getUser=(req,res)=>{
+   User.findOne({_id:req.params.id})
    
-//     .then(user=>res.status(200).json({user:user}))
-//     .catch(err=>res.status(500).json({message:err}))
-// }
+    .then(user=>res.status(200).json({user:user}))
+    .catch(err=>res.status(500).json({message:err}))
+}

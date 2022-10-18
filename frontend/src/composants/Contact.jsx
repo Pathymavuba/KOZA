@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import axios from 'axios';
 import { myContext } from '../Mycontext';
 import { useContext } from 'react';
+import UserContact  from './UserContact';
 // import profile from '../assets/pathy.jpeg'
 
 const Contact = () => {
@@ -11,7 +12,7 @@ const Contact = () => {
   const {users,setUsers,token}=useContext(myContext)
    console.log("contact-token",token);
   useEffect(()=>{
-    axios({method:"GET",url:'http://localhost:4200/koza/users/',headers:{'Content-Type':'application/json',"authorization":token}})
+    axios.get('http://localhost:4200/koza/users/',{headers:{'Content-Type':'application/json',"Authorization":token}})
     .then(users=>{
       setUsers(users.data.users)
       console.log(users)})
@@ -32,12 +33,7 @@ const Contact = () => {
          {users.map((data,index)=>{
           return(
             <div className='info-contact'>
-              <div className="profile-contact">
-                <div className="username">
-                  <h4>{data.username}</h4>
-                </div>
-              </div>
-              <div className="bordure"></div>
+              <UserContact  usercontact={data.username} recentId={data._id}/>
               </div>
           )
          })}

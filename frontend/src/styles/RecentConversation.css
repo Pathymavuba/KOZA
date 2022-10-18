@@ -1,0 +1,28 @@
+.info-message{
+    margin-top:1rem;
+}
+.profile-message{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    width:100%;
+    gap:.6rem;
+    padding-left:1.5rem;
+    cursor: pointer;
+}
+.profile-message img{
+    width:60px;
+    height:60px;
+    border-radius:50px;
+    box-shadow: 0.5 .5rem 1rem rgba(0,0,0,.1);;
+}
+
+.profile-message .username{
+    padding-top:1rem;
+}
+.bordure{
+    width:37rem;
+    border-bottom:var(--outiline);
+    margin-left:2rem;
+    margin-top: 1rem;
+}
