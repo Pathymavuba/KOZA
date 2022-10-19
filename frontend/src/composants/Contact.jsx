@@ -9,7 +9,7 @@ import UserContact  from './UserContact';
 
 const Contact = () => {
    
-  const {users,setUsers,token}=useContext(myContext)
+  const {users,userId,setUsers,token}=useContext(myContext)
    console.log("contact-token",token);
   useEffect(()=>{
     axios.get('http://localhost:4200/koza/users/',{headers:{'Content-Type':'application/json',"Authorization":token}})
@@ -33,7 +33,7 @@ const Contact = () => {
          {users.map((data,index)=>{
           return(
             <div className='info-contact'>
-              <UserContact  usercontact={data.username} recentId={data._id}/>
+              <UserContact  usercontact={data._id !== userId && data.username} recentId={data._id}/>
               </div>
           )
          })}

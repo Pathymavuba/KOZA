@@ -17,6 +17,7 @@
     box-shadow:var(--box-shadow);
     display: flex;
     flex-direction: column;
+    /* display: none; */
 }
 .profile-conversation{
     display:flex;

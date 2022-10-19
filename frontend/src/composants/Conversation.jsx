@@ -13,12 +13,13 @@ import { useState } from 'react';
 const Conversation = () => {
 
   
-  const {otherId,token,userId,conversationId,setConversationId,message,setMessage}=useContext(myContext)
+  const {otherId,token,userId,conversationId,setConversationId,message,setMessage,textsended,setTextsended}=useContext(myContext)
   const [userConversation,setUserConversation] = useState('')
-  const [textsended,setTextsended]=useState('')
+  
   console.log(textsended)
  
   const sendMessage = ()=>{
+    
 
     axios({method:"POST", 
     headers:{'Content-Type':'application/json',"authorization":token},
@@ -28,10 +29,14 @@ const Conversation = () => {
          text:textsended,
          senderId:userId}
      })
+     
      .then(text => {
-      console.log(text)
+      
     })
      .catch(err => console.error(err))
+
+     setTextsended("")
+     console.log(textsended,"root")
      
 
   }  
@@ -40,20 +45,10 @@ const Conversation = () => {
 
   useEffect(() =>{
      axios({method:"GET",url:`http://localhost:4200/koza/find/${userId}/${otherId}`,headers:{'Content-Type':'application/json',"authorization":token}})
-        .then((item)=>{
-          if(item.data._id === null){
-            axios({
-              method:'POST',
-              url:'http://localhost:4200/koza/createConversation',
-              headers:{'Content-Type':'application/json',"authorization":token},
-              data :{
-                members:[userId,otherId]
-              }
-            })
-            .then(item=>console.log(item))
-            .catch(err=>console.log(err))
-          }
-          console.log(item.data._id)
+
+        .then((item)=>{ 
+         
+        
           setConversationId(item.data._id)
           
           item.data.members[0]._id === otherId?setUserConversation(item.data.members[0].username):setUserConversation(item.data.members[1].username)
@@ -63,23 +58,35 @@ const Conversation = () => {
         .catch(err=>console.log(err))
   },[otherId] )
 
+  useEffect(()=>{
+   
+      axios({
+        method:'POST',
+        url:'http://localhost:4200/koza/createConversation',
+        headers:{'Content-Type':'application/json',"authorization":token},
+        data :{
+          members:[userId,otherId]
+        }
+      })
+      .then(item=>console.log(item))
+      .catch(err=>console.log(err))
+    
+
+  },[userId,otherId])
+
+  
+
 
   useEffect(()=>{
     axios({method:"GET",url:`http://localhost:4200/koza/message/${conversationId}`,headers:{'Content-Type':'application/json',"authorization":token}})
     .then((item)=>{
       setMessage(item.data)
-      console.log('ok',item.data)
     })
     .catch(err=>console.log(err))
 
-  },[conversationId])
+  },[conversationId,textsended,message])
 
  
- 
-
- 
-
-  console.log("pathy",message)
   return (
     <div className='conversation'>
       <div style={{width:"100%"}}>
@@ -103,8 +110,8 @@ const Conversation = () => {
 
  return (
    <div className={statutStyle}>
-        <div class="message">{messages.text}</div>
-        <div class="timestamp">{messages.createdAt}</div>
+        <div className="message">{messages.text}</div>
+        <div className="timestamp">{messages.createdAt}</div>
     </div> 
  )
 
@@ -115,7 +122,9 @@ const Conversation = () => {
       <div className="bottom-last"></div>
       <div className="send-message">
         <div className='send-text'>
-        <input type="text" placeholder='text here' onChange={(e)=>setTextsended(e.target.value)}/>
+        <input type="text" placeholder='text here' onChange={(e)=>{
+          setTextsended(e.target.value)}}
+          value={textsended}/>
         <label htmlFor="file"> <MdPhotoCamera  className='icon-camera'/> </label>
         <input type="file"  id='file' style={{display:"none"}}/>
         </div>

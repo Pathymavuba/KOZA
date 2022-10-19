@@ -8,7 +8,6 @@ const UserContact = ({usercontact,recentId}) => {
 
     const {setOtherId}=useContext(myContext)
     const handlecoversation = ()=>{
-        
         setOtherId(recentId)
 
     }

@@ -8,7 +8,6 @@ const RecentConversation = ({name,recentId}) => {
 
     const {setOtherId}=useContext(myContext)
     const handlecoversation = ()=>{
-       console.log(recentId)
        setOtherId(recentId)
         
       }

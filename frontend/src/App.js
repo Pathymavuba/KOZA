@@ -23,6 +23,7 @@ const App = () => {
   const [otherId,setOtherId]=useState("")
   const [conversationId,setConversationId]=useState("")
   const [message,setMessage]=useState([])
+  const [textsended,setTextsended]=useState('')
   
   
 
@@ -52,11 +53,11 @@ const App = () => {
     <div className='App' >
 
  
-<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage}}>
+<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage,textsended,setTextsended}}>
 
 <Routes>
-   <Route path="/accueil" element={<AccueilPage/>}> 
-      <Route path="/accueil" element={<Signup/>} />
+   <Route path="/" element={<AccueilPage/>}> 
+      <Route path="/" element={<Signup/>} />
       <Route path="/accueil/login" element={<Login/>} />
    </Route> 
    <Route path="/accueil/koza" element={<Koza logout={logout}/>} >
