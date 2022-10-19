@@ -52,6 +52,7 @@ exports.findConversation = (req,res)=>{
     })
     .populate({path:'members', select:"username"})
     // .populate({path:'receiverId', select:"username",})
-    .then(conversation =>res.status(200).json(conversation))
+    .then(conversation =>{
+        res.status(200).json(conversation)})
     .catch(err=>{res.status(500).json({error:err,message:"impossible de trouver la conversation"})})
 }

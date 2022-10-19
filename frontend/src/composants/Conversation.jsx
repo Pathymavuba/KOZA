@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
+
 const Conversation = () => {
 
   
@@ -40,6 +41,18 @@ const Conversation = () => {
   useEffect(() =>{
      axios({method:"GET",url:`http://localhost:4200/koza/find/${userId}/${otherId}`,headers:{'Content-Type':'application/json',"authorization":token}})
         .then((item)=>{
+          if(item.data._id === null){
+            axios({
+              method:'POST',
+              url:'http://localhost:4200/koza/createConversation',
+              headers:{'Content-Type':'application/json',"authorization":token},
+              data :{
+                members:[userId,otherId]
+              }
+            })
+            .then(item=>console.log(item))
+            .catch(err=>console.log(err))
+          }
           console.log(item.data._id)
           setConversationId(item.data._id)
           
