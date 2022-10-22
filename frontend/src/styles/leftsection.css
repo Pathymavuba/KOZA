@@ -1,0 +1,89 @@
+:root{
+    --blue : #1966ff;
+    --jaune:#fee926;
+    /* --black: #130f40; */
+    --light-color:#666;
+    --box-shadow:0 1.5rem 1rem rgba(0,0,0,.1);
+    /* --box-shadow:0 .5rem 1rem rgba(0,0,0,1); */
+    --border:.2rem solid rgba(0,0,0,0.1);
+    --outiline:0.1rem solid rgba(0,0,0,0.1);
+    --outiline-hover:.2rem solid var(--black);
+}
+.leftsection-body{
+    background: var(--blue);
+    margin-top: 2rem;
+    margin-left: 2.1rem;
+    height: 93vh;
+    width: 11%;
+    border-radius:1.5rem;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.profile{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    margin-top:2rem;
+    width:100%;
+    /* gap:1rem; */
+    
+}
+.profile img{
+    width:70px;
+    height:70px;
+    border-radius:50px;
+    /* box-shadow: 0.5 .5rem 1rem rgba(0,0,0,.1);; */
+}
+.btn_message{
+    width:60%;
+    height: 45px;
+    display:flex;
+    flex-direction:row;
+    margin-top:8rem;
+    
+    position: relative;
+    left:3.2rem;
+    border-radius:1rem;
+    cursor: pointer;
+    
+}
+.icones{
+    font-size:3rem;
+    color:white;
+    position:relative;
+    left:.3rem;
+    top:.8rem
+}
+.btn_user{
+    width:60%;
+    height: 45px;
+    display:flex;
+    flex-direction:row;
+    margin-top:2rem;
+    background: rgba(0,0,0,.1);
+    position: relative;
+    left:3.2rem;
+    border-radius:1rem;
+    cursor: pointer;
+    
+}
+.btn_logout{
+
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    margin-top:24rem;
+    cursor: pointer;
+
+}
+.barre{
+    width: 8px;
+    height:45px;
+    background: var(--jaune);
+    position: relative;
+    left:5.2rem;  
+}
