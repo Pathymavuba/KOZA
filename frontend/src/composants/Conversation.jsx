@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/conversation.css'
-import profile from '../assets/pathy.jpeg'
+import profile from '../assets/profile.png'
 import { MdPhotoCamera } from "react-icons/md";
 import { AiOutlineSend } from "react-icons/ai";
 import { myContext } from '../Mycontext';
@@ -8,17 +8,62 @@ import { useContext } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import {io} from 'socket.io-client'
+import { useRef } from 'react';
 
 
 const Conversation = () => {
 
   
-  const {otherId,token,userId,conversationId,setConversationId,message,setMessage,textsended,setTextsended}=useContext(myContext)
+  const {user,otherId,token,userId,conversationId,setConversationId,message,setMessage,textsended,setTextsended}=useContext(myContext)
   const [userConversation,setUserConversation] = useState('')
+  const [userConversationId,setUserConversationId] = useState('')
+  const [onlineUsers,setOnlineUsers] = useState([])
+  const [sendMessage , setSendeMessage] = useState(null)
+  const [receiveMessage , setReceiveMessage] = useState(null)
+  const socket = useRef()
   
-  console.log(textsended)
+  
+
+  useEffect(()=>{
+
+    socket.current = io('http://localhost:8800')
+    socket.current.emit('new-user-add',user._id)
+    socket.current.on('get-users',(users)=>{
+      setOnlineUsers(users)
+    })
+
+  },[user])
+
+  //send message to socket server 
+  useEffect (()=>{
+    if(sendMessage !== null){
+      socket.current.emit('send-message',sendMessage)
+    }
+  },[sendMessage])
+
+  //receive message from socket server
+  useEffect (()=>{
+
+    socket.current.on('receive-message', (data)=>{
+      setReceiveMessage(data)
+      console.log(receiveMessage,"isaac")
+
+    })
+  },[])
+
+  useEffect(()=>{
+    if (receiveMessage !== null && receiveMessage.userConversationId === conversationId){
+
+      setMessage([...message,receiveMessage])
+      
+
+    }
+
+  },[receiveMessage])
+
  
-  const sendMessage = ()=>{
+  const addMessage = ()=>{
     
 
     axios({method:"POST", 
@@ -31,15 +76,24 @@ const Conversation = () => {
      })
      
      .then(text => {
+      const receiverId = {userConversationId}
+      setSendeMessage({textsended,receiverId})
+      
       
     })
      .catch(err => console.error(err))
 
      setTextsended("")
-     console.log(textsended,"root")
+     console.log("essai",message)
+   
      
 
   }  
+  //send message to socket
+
+  // const receiverId = {userConversationId}
+  // // setSendeMessage({textsended,receiverId})
+  // console.log(sendMessage,"isaac")
   
   
 
@@ -48,12 +102,14 @@ const Conversation = () => {
 
         .then((item)=>{ 
          
-        
+          
           setConversationId(item.data._id)
           
           item.data.members[0]._id === otherId?setUserConversation(item.data.members[0].username):setUserConversation(item.data.members[1].username)
 
-    
+          item.data.members[0].id === otherId ? setUserConversationId(item.data.members[0]._id):setUserConversationId(item.data.members[1]._id)
+
+          // item.data.members[0].username
         }) 
         .catch(err=>console.log(err))
   },[otherId] )
@@ -106,12 +162,13 @@ const Conversation = () => {
            
     {message.map(messages=>{
       let statutStyle = messages.senderId !== userId ? 'messagereceived' :'messagesended'
-      let date = new Date(messages.createdAt)
+      let d = new Date(messages.createdAt)
+      let date = d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()
 
  return (
    <div className={statutStyle}>
         <div className="message">{messages.text}</div>
-        <div className="timestamp">{messages.createdAt}</div>
+        <div className="timestamp">{date}</div>
     </div> 
  )
 
@@ -128,7 +185,7 @@ const Conversation = () => {
         <label htmlFor="file"> <MdPhotoCamera  className='icon-camera'/> </label>
         <input type="file"  id='file' style={{display:"none"}}/>
         </div>
-        <div className='icon-send' onClick={sendMessage}>
+        <div className='icon-send' onClick={addMessage}>
           <AiOutlineSend  className='send'/>
         </div>
         

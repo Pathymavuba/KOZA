@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/RecentConversation.css'
-import profile from '../assets/pathy.jpeg'
+import profile from '../assets/profile.png'
 import { myContext } from '../Mycontext'
 import { useContext } from 'react'
 

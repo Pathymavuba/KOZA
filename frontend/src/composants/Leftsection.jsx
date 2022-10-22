@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/leftsection.css'
-import profile from '../assets/pathy.jpeg'
+import profile from '../assets/profile.png'
 import { AiFillMessage} from "react-icons/ai";
 import { HiUserGroup } from "react-icons/hi";
 import { IoLogOut} from "react-icons/io5";

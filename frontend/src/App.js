@@ -24,6 +24,7 @@ const App = () => {
   const [conversationId,setConversationId]=useState("")
   const [message,setMessage]=useState([])
   const [textsended,setTextsended]=useState('')
+  const  [user,setUser] =  useState({})
   
   
 
@@ -33,13 +34,21 @@ const App = () => {
   
      
   const navigate = useNavigate()
-  console.log(conversationId)
+  // console.log(conversationId)
 
   useEffect(()=>{
     console.log("ton token",token)
     setToken(localStorage.getItem("token"))
     setUserId(localStorage.getItem("userId"))
   },[token])
+
+  useEffect(()=>{
+    axios({method:"GET",
+    headers:{'Content-Type':'application/json',"authorization":token},
+    url:`http://localhost:4200/koza/users/${userId}`})
+    .then(data=>setUser(data))
+    .catch(err=>console.log(err))
+ },[userId])
 
   const logout = ()=>{
      //se deconnecter
@@ -53,7 +62,7 @@ const App = () => {
     <div className='App' >
 
  
-<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage,textsended,setTextsended}}>
+<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage,textsended,setTextsended,user}}>
 
 <Routes>
    <Route path="/" element={<AccueilPage/>}> 

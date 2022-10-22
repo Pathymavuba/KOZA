@@ -28,14 +28,14 @@
     justify-content: center;
     margin-top:2rem;
     width:100%;
-    gap:1rem;
+    /* gap:1rem; */
     
 }
 .profile img{
     width:70px;
     height:70px;
     border-radius:50px;
-    box-shadow: 0.5 .5rem 1rem rgba(0,0,0,.1);;
+    /* box-shadow: 0.5 .5rem 1rem rgba(0,0,0,.1);; */
 }
 .btn_message{
     width:60%;

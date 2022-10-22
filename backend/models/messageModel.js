@@ -5,7 +5,7 @@ const messageSchema = mongoose.Schema({
    
 
     conversationId:{type:mongoose.Schema.Types.ObjectId,ref:'conversation'},
-    text:{type:String},
+    text:{type:String,required:true},
     senderId:{type:mongoose.Schema.Types.ObjectId,ref:'user'}
 
 },{timestamps:true})

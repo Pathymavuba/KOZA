@@ -10,16 +10,16 @@ import UserContact  from './UserContact';
 const Contact = () => {
    
   const {users,userId,setUsers,token}=useContext(myContext)
-   console.log("contact-token",token);
+  //  console.log("contact-token",token);
   useEffect(()=>{
     axios.get('http://localhost:4200/koza/users/',{headers:{'Content-Type':'application/json',"Authorization":token}})
     .then(users=>{
       setUsers(users.data.users)
-      console.log(users)})
+      })
     .catch((err)=>console.log(err))
 
   },[token])
-  console.log(users)
+  
   return (
     <div className='mainsection-contact'>
         <div className="seachbar">
