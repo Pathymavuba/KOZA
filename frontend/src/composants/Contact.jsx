@@ -5,14 +5,14 @@ import axios from 'axios';
 import { myContext } from '../Mycontext';
 import { useContext } from 'react';
 import UserContact  from './UserContact';
-// import profile from '../assets/pathy.jpeg'
+
 
 const Contact = () => {
    
   const {users,userId,setUsers,token}=useContext(myContext)
-  //  console.log("contact-token",token);
+ 
   useEffect(()=>{
-    axios.get('http://localhost:4200/koza/users/',{headers:{'Content-Type':'application/json',"Authorization":token}})
+    axios.get(`http://localhost:4200/koza/users/${userId}`,{headers:{'Content-Type':'application/json',"Authorization":token}})
     .then(users=>{
       setUsers(users.data.users)
       })

@@ -6,11 +6,12 @@ import { useContext } from 'react'
 
 const RecentConversation = ({name,recentId}) => {
 
-    const {setOtherId}=useContext(myContext)
+    const {setOtherId,setSchowConversation}=useContext(myContext)
     const handlecoversation = ()=>{
        setOtherId(recentId)
-        
+       setSchowConversation(true) 
       }
+      
   return (
     <div>
          <div className='info-message' onClick={handlecoversation} >

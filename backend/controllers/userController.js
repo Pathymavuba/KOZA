@@ -78,7 +78,7 @@ exports.logIn = (req,res)=>{
 }
 
 exports.getUsers=(req,res)=>{
-    User.find()
+    User.find({_id:{$ne :req.params.id}})
      .then(users=>{
         res.status(200).json({
             success: true,

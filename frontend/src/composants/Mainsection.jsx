@@ -19,7 +19,7 @@ const Mainsection = ({handlecoversation}) => {
 
       
       setConversationRecent(res.data)
-      console.log(res.data )
+      console.log(res.data[0].members,"pathy")
      
     })
     .catch(err=>console.log(err))
@@ -43,11 +43,12 @@ const Mainsection = ({handlecoversation}) => {
 
       {conversationRecent.map((conversation,index)=>{
         console.log(conversation.members)
-        // console.log(conversation.members[0]._id === userId ? conversation.members[1].username : conversation.members[0].username)
+        
         return(
           
         
-        <RecentConversation key={index} name={conversation.members[0].username}  />
+        <RecentConversation key={index} recentId={conversation.members[0]._id === userId ? conversation.members[1]._id : conversation.members[0]._id} 
+        name={conversation.members[0]._id === userId ? conversation.members[1].username : conversation.members[0].username}  />
              
           
                       
@@ -64,6 +65,3 @@ const Mainsection = ({handlecoversation}) => {
 
 export default Mainsection
 
-// recentId={conversation.members[0]._id === userId ? conversation.members[1]._id : conversation.members[0]._id} 
-
-// name={conversation.members[0]._id === userId ? conversation.members[1].username : conversation.members[0].username}

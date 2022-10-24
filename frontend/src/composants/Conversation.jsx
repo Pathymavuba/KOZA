@@ -109,7 +109,7 @@ const Conversation = () => {
 
           item.data.members[0].id === otherId ? setUserConversationId(item.data.members[0]._id):setUserConversationId(item.data.members[1]._id)
 
-          // item.data.members[0].username
+         
         }) 
         .catch(err=>console.log(err))
   },[otherId] )
@@ -131,7 +131,6 @@ const Conversation = () => {
   },[userId,otherId])
 
   
-
 
   useEffect(()=>{
     axios({method:"GET",url:`http://localhost:4200/koza/message/${conversationId}`,headers:{'Content-Type':'application/json',"authorization":token}})

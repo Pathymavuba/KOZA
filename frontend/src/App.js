@@ -35,7 +35,7 @@ const App = () => {
   
      
   const navigate = useNavigate()
-  // console.log(conversationId)
+ 
 
   useEffect(()=>{
     console.log("ton token",token)
@@ -56,7 +56,7 @@ const App = () => {
     setToken("")
     window.localStorage.removeItem("token")
     window.localStorage.removeItem("userId")
-     setSchowConversation(false)
+    setSchowConversation(false)
     navigate("/accueil/login")
   }
 
