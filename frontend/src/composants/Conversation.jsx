@@ -55,7 +55,7 @@ const Conversation = () => {
   useEffect(()=>{
     if (receiveMessage !== null && receiveMessage.userConversationId === conversationId){
 
-      setMessage([...message,receiveMessage])
+      setMessage((prev)=>[...prev,receiveMessage])
       
 
     }

@@ -6,9 +6,10 @@ import { useContext } from 'react'
 
 const UserContact = ({usercontact,recentId}) => {
 
-    const {setOtherId}=useContext(myContext)
+    const {setOtherId,setSchowConversation}=useContext(myContext)
     const handlecoversation = ()=>{
         setOtherId(recentId)
+        setSchowConversation(true)
 
     }
 

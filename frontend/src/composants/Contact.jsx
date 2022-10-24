@@ -33,7 +33,7 @@ const Contact = () => {
          {users.map((data,index)=>{
           return(
             <div className='info-contact'>
-              <UserContact  usercontact={data._id !== userId && data.username} recentId={data._id}/>
+              <UserContact  usercontact={data.username} recentId={data._id}/>
               </div>
           )
          })}

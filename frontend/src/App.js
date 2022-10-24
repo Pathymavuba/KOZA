@@ -25,6 +25,7 @@ const App = () => {
   const [message,setMessage]=useState([])
   const [textsended,setTextsended]=useState('')
   const  [user,setUser] =  useState({})
+  const [showConversation,setSchowConversation]=useState(false)
   
   
 
@@ -55,6 +56,7 @@ const App = () => {
     setToken("")
     window.localStorage.removeItem("token")
     window.localStorage.removeItem("userId")
+     setSchowConversation(false)
     navigate("/accueil/login")
   }
 
@@ -62,7 +64,7 @@ const App = () => {
     <div className='App' >
 
  
-<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage,textsended,setTextsended,user}}>
+<myContext.Provider value={{username,setUsername,password,setPassword,token,setToken,users,setUsers,userId,conversationRecent,conversationId,setConversationId,setConversationRecent,otherId,setOtherId,message,setMessage,textsended,setTextsended,user,showConversation,setSchowConversation}}>
 
 <Routes>
    <Route path="/" element={<AccueilPage/>}> 
