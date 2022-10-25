@@ -47,7 +47,6 @@ const Conversation = () => {
 
     socket.current.on('receive-message', (data)=>{
       setReceiveMessage(data)
-      console.log(receiveMessage,"isaac")
 
     })
   },[])
@@ -57,10 +56,10 @@ const Conversation = () => {
 
       setMessage((prev)=>[...prev,receiveMessage])
       
-
     }
 
   },[receiveMessage])
+ 
 
  
   const addMessage = ()=>{
@@ -80,23 +79,19 @@ const Conversation = () => {
       setSendeMessage({textsended,receiverId})
       
       
+      
     })
      .catch(err => console.error(err))
 
      setTextsended("")
-     console.log("essai",message)
+     
    
      
 
   }  
-  //send message to socket
 
-  // const receiverId = {userConversationId}
-  // // setSendeMessage({textsended,receiverId})
-  // console.log(sendMessage,"isaac")
-  
-  
-
+  console.log(message,"je veux ")
+ 
   useEffect(() =>{
      axios({method:"GET",url:`http://localhost:4200/koza/find/${userId}/${otherId}`,headers:{'Content-Type':'application/json',"authorization":token}})
 

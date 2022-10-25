@@ -26,6 +26,7 @@ const App = () => {
   const [textsended,setTextsended]=useState('')
   const  [user,setUser] =  useState({})
   const [showConversation,setSchowConversation]=useState(false)
+  // const [lastMessage,setLastMessage] = useState("")
   
   
 

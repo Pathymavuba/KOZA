@@ -9,9 +9,9 @@ import { myContext } from '../Mycontext';
 import RecentConversation from './RecentConversation';
 
 const Mainsection = ({handlecoversation}) => {
-  const {user,userId,token,setConversationRecent,conversationRecent}=useContext(myContext)
+  const {user,userId,token,setConversationRecent,conversationRecent,message}=useContext(myContext)
   
-  
+  console.log(message,"bouteille");
   useEffect(()=>{
   
     axios({method:"GET",url:`http://localhost:4200/koza/${userId}`,headers:{'Content-Type':'application/json',"authorization":token}})
@@ -19,7 +19,6 @@ const Mainsection = ({handlecoversation}) => {
 
       
       setConversationRecent(res.data)
-      console.log(res.data[0].members,"pathy")
      
     })
     .catch(err=>console.log(err))
@@ -27,7 +26,7 @@ const Mainsection = ({handlecoversation}) => {
   },[token,userId])
 
 
-
+  
 
   
    return (
@@ -42,13 +41,12 @@ const Mainsection = ({handlecoversation}) => {
           </div>
 
       {conversationRecent.map((conversation,index)=>{
-        console.log(conversation.members)
         
         return(
           
         
         <RecentConversation key={index} recentId={conversation.members[0]._id === userId ? conversation.members[1]._id : conversation.members[0]._id} 
-        name={conversation.members[0]._id === userId ? conversation.members[1].username : conversation.members[0].username}  />
+        name={conversation.members[0]._id === userId ? conversation.members[1].username : conversation.members[0].username} lastmessage="ça va?"/>
              
           
                       

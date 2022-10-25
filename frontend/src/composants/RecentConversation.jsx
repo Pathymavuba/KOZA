@@ -4,7 +4,7 @@ import profile from '../assets/profile.png'
 import { myContext } from '../Mycontext'
 import { useContext } from 'react'
 
-const RecentConversation = ({name,recentId}) => {
+const RecentConversation = ({name,recentId,lastmessage}) => {
 
     const {setOtherId,setSchowConversation}=useContext(myContext)
     const handlecoversation = ()=>{
@@ -19,7 +19,7 @@ const RecentConversation = ({name,recentId}) => {
           <img src={profile} alt="mon profile" />
               <div className="username" > 
               <h4>{name}</h4>
-              <p style={{color:"#00000",opacity:".5"}}>ça va?</p>
+              <p style={{color:"#00000",opacity:".5"}}>{lastmessage}</p>
             </div>
                       
         </div>

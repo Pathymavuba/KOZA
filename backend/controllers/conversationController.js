@@ -6,8 +6,6 @@ exports.createConversation = (req, res) => {
     const {members} = req.body
     Conversation.findOne({
         members:{$all:[...members]}
-        
-
     })
     .then(data=>{
         if(data!==null){
@@ -17,7 +15,7 @@ exports.createConversation = (req, res) => {
             const conversation = new Conversation({
                 members:[...members],
                 receiverId:members[members.length-1]
-                // members:{$or:[{sender:req.body.senderId,receiver:req.body.receiverId},{sender:req.body.receiverId,receiver:req.body.senderId}]}
+                
             })
             conversation.save()
         .then((result)=>{
