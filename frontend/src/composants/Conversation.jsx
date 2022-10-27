@@ -10,6 +10,8 @@ import axios from "axios"
 import { useState } from "react"
 import { io } from "socket.io-client"
 import { useRef } from "react"
+import { BsFillEmojiSmileFill } from "react-icons/bs"
+import Picker from "emoji-picker-react"
 
 const Conversation = () => {
   const {
@@ -29,6 +31,7 @@ const Conversation = () => {
   const [onlineUsers, setOnlineUsers] = useState([])
   const [sendMessage, setSendeMessage] = useState(null)
   const [receiveMessage, setReceiveMessage] = useState(null)
+  const [showPicker, setShowPicker] = useState(false)
   const socket = useRef()
 
   useEffect(() => {
@@ -161,7 +164,20 @@ const Conversation = () => {
         })}
       </div>
 
-      <div className="bottom-last"></div>
+      <div className="bottom-last"> </div>
+
+      <div
+        style={{
+          position: "absolute",
+          top: "10%",
+          left: "70%",
+          zIndex: "10000",
+        }}
+      >
+        {" "}
+        {showPicker && <Picker pickerStyle={{ width: "100%" }} />}
+      </div>
+
       <div className="send-message">
         <div className="send-text">
           <input
@@ -172,6 +188,12 @@ const Conversation = () => {
             }}
             value={textsended}
           />
+          <label>
+            <BsFillEmojiSmileFill
+              className="icon-emoji"
+              onClick={() => setShowPicker((val) => !val)}
+            />
+          </label>
           <label htmlFor="file">
             {" "}
             <MdPhotoCamera className="icon-camera" />{" "}
