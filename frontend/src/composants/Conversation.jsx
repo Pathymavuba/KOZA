@@ -10,6 +10,8 @@ import axios from "axios"
 import { useState } from "react"
 import { io } from "socket.io-client"
 import { useRef } from "react"
+import { BsFillEmojiSmileFill } from "react-icons/bs"
+import Picker from "emoji-picker-react"
 
 const Conversation = () => {
   const {
@@ -29,7 +31,9 @@ const Conversation = () => {
   const [onlineUsers, setOnlineUsers] = useState([])
   const [sendMessage, setSendeMessage] = useState(null)
   const [receiveMessage, setReceiveMessage] = useState(null)
+  const [showPicker, setShowPicker] = useState(false)
   const socket = useRef()
+  const inputRef = useRef()
 
   useEffect(() => {
     socket.current = io("http://localhost:8800")
@@ -62,6 +66,11 @@ const Conversation = () => {
       setMessage((prev) => [...prev, receiveMessage])
     }
   }, [receiveMessage])
+
+  const onEmojiClick = (event) => {
+    setTextsended((prevInput) => prevInput + event.emoji)
+    inputRef.current.focus()
+  }
 
   const addMessage = () => {
     axios({
@@ -161,17 +170,39 @@ const Conversation = () => {
         })}
       </div>
 
-      <div className="bottom-last"></div>
+      <div className="bottom-last"> </div>
+
+      <div
+        style={{
+          position: "absolute",
+          top: "10%",
+          left: "70%",
+          zIndex: "10000",
+        }}
+      >
+        {" "}
+        {showPicker && (
+          <Picker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
+        )}
+      </div>
+
       <div className="send-message">
         <div className="send-text">
           <input
             type="text"
             placeholder="text here"
+            ref={inputRef}
             onChange={(e) => {
               setTextsended(e.target.value)
             }}
             value={textsended}
           />
+          <label>
+            <BsFillEmojiSmileFill
+              className="icon-emoji"
+              onClick={() => setShowPicker((val) => !val)}
+            />
+          </label>
           <label htmlFor="file">
             {" "}
             <MdPhotoCamera className="icon-camera" />{" "}

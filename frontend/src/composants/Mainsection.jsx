@@ -15,10 +15,10 @@ const Mainsection = () => {
     token,
     setConversationRecent,
     conversationRecent,
+    // eslint-disable-next-line no-unused-vars
     message,
   } = useContext(myContext)
 
-  console.log(message, "bouteille")
   useEffect(() => {
     axios({
       method: "GET",
