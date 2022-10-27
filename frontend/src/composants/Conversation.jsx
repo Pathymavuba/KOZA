@@ -33,6 +33,7 @@ const Conversation = () => {
   const [receiveMessage, setReceiveMessage] = useState(null)
   const [showPicker, setShowPicker] = useState(false)
   const socket = useRef()
+  const inputRef = useRef()
 
   useEffect(() => {
     socket.current = io("http://localhost:8800")
@@ -65,6 +66,11 @@ const Conversation = () => {
       setMessage((prev) => [...prev, receiveMessage])
     }
   }, [receiveMessage])
+
+  const onEmojiClick = (event) => {
+    setTextsended((prevInput) => prevInput + event.emoji)
+    inputRef.current.focus()
+  }
 
   const addMessage = () => {
     axios({
@@ -175,7 +181,9 @@ const Conversation = () => {
         }}
       >
         {" "}
-        {showPicker && <Picker pickerStyle={{ width: "100%" }} />}
+        {showPicker && (
+          <Picker pickerStyle={{ width: "100%" }} onEmojiClick={onEmojiClick} />
+        )}
       </div>
 
       <div className="send-message">
@@ -183,6 +191,7 @@ const Conversation = () => {
           <input
             type="text"
             placeholder="text here"
+            ref={inputRef}
             onChange={(e) => {
               setTextsended(e.target.value)
             }}
