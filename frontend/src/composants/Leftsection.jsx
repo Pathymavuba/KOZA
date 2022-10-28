@@ -10,10 +10,11 @@ import { Link } from "react-router-dom"
 // eslint-disable-next-line react/prop-types
 const Leftsection = ({ logout }) => {
   const [list, setList] = useState("message")
+  const myProfile = localStorage.getItem("profileUser")
   return (
     <div className="leftsection-body">
       <div className="profile">
-        <img src={profile} alt="mon profile" />
+        <img src={myProfile ? myProfile : profile} alt="mon profile" />
       </div>
 
       <div

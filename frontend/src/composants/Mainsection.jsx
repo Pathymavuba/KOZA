@@ -27,6 +27,7 @@ const Mainsection = () => {
     })
       .then((res) => {
         setConversationRecent(res.data)
+        console.log(res.data,"ok")
       })
       .catch((err) => console.log(err))
   }, [token, userId])
@@ -59,7 +60,12 @@ const Mainsection = () => {
                   ? conversation.members[1].username
                   : conversation.members[0].username
               }
-              lastmessage="ça va?"
+              profile={
+                conversation.members[0]._id === userId
+                ? conversation.members[1].profile
+                : conversation.members[0].profile
+              }
+              // lastmessage="ça va?"
             />
           )
         })}

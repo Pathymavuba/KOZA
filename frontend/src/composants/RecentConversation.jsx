@@ -1,11 +1,11 @@
 import React from "react"
 import "../styles/RecentConversation.css"
-import profile from "../assets/profile.png"
+// import profile from "../assets/profile.png"
 import { myContext } from "../Mycontext"
 import { useContext } from "react"
 
 // eslint-disable-next-line react/prop-types
-const RecentConversation = ({ name, recentId, lastmessage }) => {
+const RecentConversation = ({ name, recentId, lastmessage, profile }) => {
   const { setOtherId, setSchowConversation } = useContext(myContext)
   const handlecoversation = () => {
     setOtherId(recentId)

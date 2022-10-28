@@ -48,6 +48,7 @@ const App = () => {
     setToken("")
     window.localStorage.removeItem("token")
     window.localStorage.removeItem("userId")
+    window.localStorage.removeItem("profileUser")
     setSchowConversation(false)
     navigate("/accueil/login")
   }

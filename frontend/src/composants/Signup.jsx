@@ -5,28 +5,67 @@ import axios from "axios"
 import { useContext } from "react"
 import { myContext } from "../Mycontext"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import Profile from "../assets/profile.png"
 
 const Signup = () => {
   const navigate = useNavigate()
 
   const { username, setUsername, password, setPassword } = useContext(myContext)
+  const [profile, setProfile] = useState()
 
-  const createuser_url = "http://localhost:4200/koza/signup"
+  console.log(profile, "trigo")
 
-  const createUser = (e) => {
+  const handleProfile = (imageProfile) => {
+    if (imageProfile) {
+      setProfile(imageProfile[0])
+    }
+  }
+
+  const createUser = async (e) => {
     e.preventDefault()
-    axios
-      .post(createuser_url, {
-        username: username,
-        password: password,
+    if (profile) {
+      const formData = new FormData()
+      formData.append("file", profile)
+      // eslint-disable-next-line no-undef
+      formData.append("upload_preset", "pathymavuba")
+
+      let image = await axios({
+        method: "POST",
+        url: "https://api.cloudinary.com/v1_1/dyejqdtgf/upload",
+        data: formData,
       })
-      .then(() => {
-        navigate("/accueil/login")
-        console.log("user created")
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+      console.log("victor", image.data.secure_url)
+      const createuser_url = "http://localhost:4200/koza/signup"
+      axios
+        .post(createuser_url, {
+          username: username,
+          password: password,
+          profile: image.data.secure_url,
+        })
+        .then((data) => {
+          console.log(data)
+          navigate("/accueil/login")
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    } else {
+      const createuser_url = "http://localhost:4200/koza/signup"
+      axios
+        .post(createuser_url, {
+          username: username,
+          password: password,
+          profile: Profile,
+        })
+        .then((data) => {
+          console.log(data)
+          navigate("/accueil/login")
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
   }
 
   return (
@@ -43,6 +82,14 @@ const Signup = () => {
             type="password"
             placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="file"
+            accept="image/jpg,png,jpeg"
+            id="avatar"
+            name="avatar"
+            // eslint-disable-next-line no-undef
+            onChange={(e) => handleProfile(e.target.files)}
           />
 
           <input

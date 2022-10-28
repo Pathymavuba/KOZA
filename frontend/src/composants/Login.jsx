@@ -22,6 +22,7 @@ const Login = () => {
         console.log(user)
         localStorage.setItem("token", user.data.token)
         localStorage.setItem("userId", user.data.payload.id)
+        localStorage.setItem("profileUser", user.data.payload.profile)
         setToken(localStorage.getItem("token"))
         navigate("/accueil/koza")
       })

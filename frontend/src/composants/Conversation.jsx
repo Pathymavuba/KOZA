@@ -1,6 +1,6 @@
 import React from "react"
 import "../styles/conversation.css"
-import profile from "../assets/profile.png"
+// import profile from "../assets/profile.png"
 import { MdPhotoCamera } from "react-icons/md"
 import { AiOutlineSend } from "react-icons/ai"
 import { myContext } from "../Mycontext"
@@ -32,6 +32,7 @@ const Conversation = () => {
   const [sendMessage, setSendeMessage] = useState(null)
   const [receiveMessage, setReceiveMessage] = useState(null)
   const [showPicker, setShowPicker] = useState(false)
+  const [profile, setProfile] = useState("")
   const socket = useRef()
   const inputRef = useRef()
 
@@ -92,8 +93,6 @@ const Conversation = () => {
     setTextsended("")
   }
 
-  console.log(message, "je veux ")
-
   useEffect(() => {
     axios({
       method: "GET",
@@ -106,6 +105,9 @@ const Conversation = () => {
         item.data.members[0]._id === otherId
           ? setUserConversation(item.data.members[0].username)
           : setUserConversation(item.data.members[1].username)
+        item.data.members[0]._id === otherId
+          ? setProfile(item.data.members[0].profile)
+          : setProfile(item.data.members[1].profile)
 
         item.data.members[0].id === otherId
           ? setUserConversationId(item.data.members[0]._id)
