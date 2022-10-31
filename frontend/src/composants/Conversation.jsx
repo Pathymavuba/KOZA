@@ -130,7 +130,18 @@ const Conversation = () => {
       setTextsended("")
     }
   }
-
+  useEffect(() => {
+    axios({
+      method: "POST",
+      url: "http://localhost:4200/koza/createConversation",
+      headers: { "Content-Type": "application/json", authorization: token },
+      data: {
+        members: [userId, otherId],
+      },
+    })
+      .then(() => console.log("conversation created"))
+      .catch((err) => console.log(err))
+  }, [userId, otherId])
   useEffect(() => {
     axios({
       method: "GET",
@@ -156,29 +167,15 @@ const Conversation = () => {
 
   useEffect(() => {
     axios({
-      method: "POST",
-      url: "http://localhost:4200/koza/createConversation",
-      headers: { "Content-Type": "application/json", authorization: token },
-      data: {
-        members: [userId, otherId],
-      },
-    })
-      .then(() => console.log("conversation created"))
-      .catch((err) => console.log(err))
-  }, [userId, otherId])
-
-  useEffect(() => {
-    axios({
       method: "GET",
       url: `http://localhost:4200/koza/message/${conversationId}`,
       headers: { "Content-Type": "application/json", authorization: token },
     })
       .then((item) => {
         setMessage(item.data)
-        console.log(message, "joe")
       })
       .catch((err) => console.log(err))
-  }, [conversationId, textsended])
+  }, [conversationId, textsended, message])
 
   return (
     <div className="conversation">
@@ -205,12 +202,13 @@ const Conversation = () => {
             // eslint-disable-next-line react/jsx-key
             <div className={statutStyle} style={{ gap: ".5rem" }}>
               <div>
-                {" "}
-                <img
-                  src={`${messages.imagUrl}`}
-                  alt="imag"
-                  style={{ width: "300px", heigth: "120px" }}
-                />{" "}
+                {messages.imagUrl && (
+                  <img
+                    src={`${messages.imagUrl}`}
+                    alt="imag"
+                    style={{ width: "300px", heigth: "120px" }}
+                  />
+                )}
               </div>
               <div className="message">{messages.text}</div>
               <div className="timestamp">{date}</div>
