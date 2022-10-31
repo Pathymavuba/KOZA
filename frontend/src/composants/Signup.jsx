@@ -14,8 +14,6 @@ const Signup = () => {
   const { username, setUsername, password, setPassword } = useContext(myContext)
   const [profile, setProfile] = useState()
 
-  console.log(profile, "trigo")
-
   const handleProfile = (imageProfile) => {
     if (imageProfile) {
       setProfile(imageProfile[0])

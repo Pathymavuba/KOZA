@@ -80,6 +80,8 @@
     max-width: 40%;
     min-width: 25%;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .messagereceived .message,
 .messagesended .message {

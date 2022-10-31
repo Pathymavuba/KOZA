@@ -33,6 +33,7 @@ const Conversation = () => {
   const [receiveMessage, setReceiveMessage] = useState(null)
   const [showPicker, setShowPicker] = useState(false)
   const [profile, setProfile] = useState("")
+  const [imageTosend, setImageTosend] = useState("")
   const socket = useRef()
   const inputRef = useRef()
 
@@ -70,27 +71,64 @@ const Conversation = () => {
 
   const onEmojiClick = (event) => {
     setTextsended((prevInput) => prevInput + event.emoji)
+    setShowPicker((val) => !val)
     inputRef.current.focus()
   }
+  const handeleImage = (imageSelected) => {
+    if (imageSelected) {
+      setImageTosend(imageSelected[0])
+    }
+  }
 
-  const addMessage = () => {
-    axios({
-      method: "POST",
-      headers: { "Content-Type": "application/json", authorization: token },
-      url: `http://localhost:4200/koza/message/`,
-      data: {
-        conversationId: conversationId,
-        text: textsended,
-        senderId: userId,
-      },
-    })
-      .then(() => {
-        const receiverId = { userConversationId }
-        setSendeMessage({ textsended, receiverId })
+  const addMessage = async () => {
+    if (imageTosend) {
+      const formData = new FormData()
+      formData.append("file", imageTosend)
+      // eslint-disable-next-line no-undef
+      formData.append("upload_preset", "pathymavuba")
+      let image = await axios({
+        method: "POST",
+        url: "https://api.cloudinary.com/v1_1/dyejqdtgf/upload",
+        data: formData,
       })
-      .catch((err) => console.error(err))
+      axios({
+        method: "POST",
+        headers: { "Content-Type": "application/json", authorization: token },
+        url: `http://localhost:4200/koza/message/`,
+        data: {
+          conversationId: conversationId,
+          text: textsended,
+          senderId: userId,
+          imagUrl: image.data.secure_url,
+        },
+      })
+        .then((response) => {
+          let imageUrl = response.data.imageUrl
+          const receiverId = { userConversationId }
+          setSendeMessage({ textsended, receiverId, imageUrl })
+        })
+        .catch((err) => console.error(err))
 
-    setTextsended("")
+      setTextsended("")
+    } else {
+      axios({
+        method: "POST",
+        headers: { "Content-Type": "application/json", authorization: token },
+        url: "http://localhost:4200/koza/message/",
+        data: {
+          conversationId: conversationId,
+          text: textsended,
+          senderId: userId,
+        },
+      })
+        .then(() => {
+          const receiverId = { userConversationId }
+          setSendeMessage({ textsended, receiverId })
+        })
+        .catch((err) => console.error(err))
+
+      setTextsended("")
+    }
   }
 
   useEffect(() => {
@@ -125,7 +163,7 @@ const Conversation = () => {
         members: [userId, otherId],
       },
     })
-      .then((item) => console.log(item))
+      .then(() => console.log("conversation created"))
       .catch((err) => console.log(err))
   }, [userId, otherId])
 
@@ -137,9 +175,10 @@ const Conversation = () => {
     })
       .then((item) => {
         setMessage(item.data)
+        console.log(message, "joe")
       })
       .catch((err) => console.log(err))
-  }, [conversationId, textsended, message])
+  }, [conversationId, textsended])
 
   return (
     <div className="conversation">
@@ -164,7 +203,15 @@ const Conversation = () => {
 
           return (
             // eslint-disable-next-line react/jsx-key
-            <div className={statutStyle}>
+            <div className={statutStyle} style={{ gap: ".5rem" }}>
+              <div>
+                {" "}
+                <img
+                  src={`${messages.imagUrl}`}
+                  alt="imag"
+                  style={{ width: "300px", heigth: "120px" }}
+                />{" "}
+              </div>
               <div className="message">{messages.text}</div>
               <div className="timestamp">{date}</div>
             </div>
@@ -205,11 +252,19 @@ const Conversation = () => {
               onClick={() => setShowPicker((val) => !val)}
             />
           </label>
-          <label htmlFor="file">
+          <label htmlFor="avatar">
             {" "}
             <MdPhotoCamera className="icon-camera" />{" "}
           </label>
-          <input type="file" id="file" style={{ display: "none" }} />
+          <input
+            type="file"
+            accept="image/jpg,png,jpeg"
+            id="avatar"
+            name="avatar"
+            style={{ display: "none" }}
+            // eslint-disable-next-line no-undef
+            onChange={(event) => handeleImage(event.target.files)}
+          />
         </div>
         <div className="icon-send" onClick={addMessage}>
           <AiOutlineSend className="send" />

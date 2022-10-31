@@ -2,8 +2,8 @@ const Message = require('../models/messageModel')
 
 
 exports.addMessage = (req,res)=>{
-    const {conversationId,text,senderId}=req.body
-    const message = new Message({conversationId,text,senderId})
+    const {conversationId,text,senderId,imagUrl}=req.body
+    const message = new Message({conversationId,text,senderId,imagUrl})
     message.save()
      .then((result)=>{
         console.log("message envoyé");
