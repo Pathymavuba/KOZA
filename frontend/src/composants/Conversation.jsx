@@ -38,7 +38,8 @@ const Conversation = () => {
   const inputRef = useRef()
 
   useEffect(() => {
-    socket.current = io("http://localhost:8800")
+    // eslint-disable-next-line no-undef
+    socket.current = io(`${process.env.REACT_APP_URL_SOCKET}`)
     socket.current.emit("new-user-add", user._id)
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users)
@@ -88,13 +89,15 @@ const Conversation = () => {
       formData.append("upload_preset", "pathymavuba")
       let image = await axios({
         method: "POST",
-        url: "https://api.cloudinary.com/v1_1/dyejqdtgf/upload",
+        // eslint-disable-next-line no-undef
+        url: `${process.env.REACT_APP_URL_CLOUDINARY}`,
         data: formData,
       })
       axios({
         method: "POST",
         headers: { "Content-Type": "application/json", authorization: token },
-        url: `http://localhost:4200/koza/message/`,
+        // eslint-disable-next-line no-undef
+        url: `${process.env.REACT_APP_URL_BACKEND}/message/`,
         data: {
           conversationId: conversationId,
           text: textsended,
@@ -114,7 +117,8 @@ const Conversation = () => {
       axios({
         method: "POST",
         headers: { "Content-Type": "application/json", authorization: token },
-        url: "http://localhost:4200/koza/message/",
+        // eslint-disable-next-line no-undef
+        url: `${process.env.REACT_APP_URL_BACKEND}/message/`,
         data: {
           conversationId: conversationId,
           text: textsended,
@@ -133,7 +137,8 @@ const Conversation = () => {
   useEffect(() => {
     axios({
       method: "POST",
-      url: "http://localhost:4200/koza/createConversation",
+      // eslint-disable-next-line no-undef
+      url: `${process.env.REACT_APP_URL_BACKEND}/createConversation`,
       headers: { "Content-Type": "application/json", authorization: token },
       data: {
         members: [userId, otherId],
@@ -145,7 +150,8 @@ const Conversation = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:4200/koza/find/${userId}/${otherId}`,
+      // eslint-disable-next-line no-undef
+      url: `${process.env.REACT_APP_URL_BACKEND}/find/${userId}/${otherId}`,
       headers: { "Content-Type": "application/json", authorization: token },
     })
       .then((item) => {
@@ -168,7 +174,8 @@ const Conversation = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:4200/koza/message/${conversationId}`,
+      // eslint-disable-next-line no-undef
+      url: `${process.env.REACT_APP_URL_BACKEND}/message/${conversationId}`,
       headers: { "Content-Type": "application/json", authorization: token },
     })
       .then((item) => {

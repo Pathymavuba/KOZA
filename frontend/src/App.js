@@ -37,7 +37,8 @@ const App = () => {
     axios({
       method: "GET",
       headers: { "Content-Type": "application/json", authorization: token },
-      url: `http://localhost:4200/koza/users/${userId}`,
+      // eslint-disable-next-line no-undef
+      url: `${process.env.REACT_APP_URL_BACKEND}/users/${userId}`,
     })
       .then((data) => setUser(data))
       .catch((err) => console.log(err))

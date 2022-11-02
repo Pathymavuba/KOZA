@@ -22,7 +22,8 @@ const Mainsection = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://localhost:4200/koza/${userId}`,
+      // eslint-disable-next-line no-undef
+      url: `${process.env.REACT_APP_URL_BACKEND}/${userId}`,
       headers: { "Content-Type": "application/json", authorization: token },
     })
       .then((res) => {

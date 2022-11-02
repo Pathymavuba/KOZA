@@ -11,7 +11,8 @@ const Contact = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4200/koza/users/${userId}`, {
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.REACT_APP_URL_BACKEND}/users/${userId}`, {
         headers: { "Content-Type": "application/json", Authorization: token },
       })
       .then((users) => {

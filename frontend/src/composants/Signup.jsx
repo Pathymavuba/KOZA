@@ -30,11 +30,12 @@ const Signup = () => {
 
       let image = await axios({
         method: "POST",
-        url: "https://api.cloudinary.com/v1_1/dyejqdtgf/upload",
+        // eslint-disable-next-line no-undef
+        url: `${process.env.REACT_APP_URL_CLOUDINARY}`,
         data: formData,
       })
-      console.log("victor", image.data.secure_url)
-      const createuser_url = "http://localhost:4200/koza/signup"
+      // eslint-disable-next-line no-undef
+      const createuser_url = `${process.env.REACT_APP_URL_BACKEND}/signup`
       axios
         .post(createuser_url, {
           username: username,
@@ -49,7 +50,8 @@ const Signup = () => {
           console.log(error)
         })
     } else {
-      const createuser_url = "http://localhost:4200/koza/signup"
+      // eslint-disable-next-line no-undef
+      const createuser_url = `${process.env.REACT_APP_URL_BACKEND}/signup`
       axios
         .post(createuser_url, {
           username: username,

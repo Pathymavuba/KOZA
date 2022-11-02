@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom"
 const Login = () => {
   const { username, setUsername, password, setPassword, setToken } =
     useContext(myContext)
-  const login_url = "http://localhost:4200/koza/login"
+  // eslint-disable-next-line no-undef
+  const login_url = `${process.env.REACT_APP_URL_BACKEND}/login`
   const navigate = useNavigate()
 
   const login_user = () => {
