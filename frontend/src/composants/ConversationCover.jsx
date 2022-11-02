@@ -1,10 +1,8 @@
-import React from 'react'
-import '../styles/conversation.css'
+import React from "react"
+import "../styles/conversation.css"
 
 const ConversationCover = () => {
-  return (
-    <div className='conversationcover'></div>
-  )
+  return <div className="conversationcover"></div>
 }
 
 export default ConversationCover

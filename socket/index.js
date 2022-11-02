@@ -27,10 +27,10 @@ io.on("connection",(socket)=>{
 
      //send-message 
      socket.on('send-message',(data)=>{
-        const {receiverId}=data;
+        const {receiverId}=data
         const user = activeUsers.find((user)=>user.userId === receiverId) 
 
-        console.log("sendin-message from socket " , receiverId)
+        // console.log("sendin-message from socket " , receiverId)
         console.log("data" , data)
          if (user){
             io.to(user.socketId).emit("receive-message",data)

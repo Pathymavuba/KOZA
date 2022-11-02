@@ -36,7 +36,7 @@ exports.userConversation = (req,res, next)=>{
     Conversation.find({
         members:{$in:[req.params.userId]}
     })
-    .populate({path:'members', select:"username",})
+    .populate('members')
     .populate({path:'receiverId', select:"username",})
     .then(conversation =>res.status(200).json(conversation)) 
     .catch(err=>{res.status(500).json({error:err})})
@@ -48,7 +48,7 @@ exports.findConversation = (req,res)=>{
 
         // members:{$or:[{sender:req.params.firstId,receiver:req.params.secondId},{sender:req.params.secondId,receiver:req.params.firstId}]}
     })
-    .populate({path:'members', select:"username"})
+    .populate('members')
     // .populate({path:'receiverId', select:"username",})
     .then(conversation =>{
         res.status(200).json(conversation)})

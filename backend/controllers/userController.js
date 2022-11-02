@@ -3,13 +3,15 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const express = require('express')
+const { profile } = require('console')
 
 exports.signUp = (req,res)=>{
     bcrypt.hash(req.body.password,10)
      .then((hash)=>{
         const user = new User({
             username: req.body.username,
-            password: hash
+            password: hash,
+            profile: req.body.profile
         })
         user.save()
         .then(user=>{
@@ -19,6 +21,7 @@ exports.signUp = (req,res)=>{
                 user:{
                     id: user._id,
                     username: user.username,
+                    profile:user.profile
                 }
             })
         })
@@ -57,6 +60,7 @@ exports.logIn = (req,res)=>{
                 const payload = {
                     username: user.username,
                     id:user._id,
+                    profile: user.profile
                 }
 
                 require('dotenv').config()
