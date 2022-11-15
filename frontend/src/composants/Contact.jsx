@@ -10,7 +10,11 @@ import ReactLoading from "react-loading"
 const Contact = () => {
   const { users, userId, setUsers, token } = useContext(myContext)
   const [loadContact, setLoadContact] = useState(true)
-
+  const [searchTerm, setSearchTerm] = useState("")
+  const handleSeach = (e) => {
+    let value = e.target.value
+    setSearchTerm(value)
+  }
   useEffect(() => {
     axios
       // eslint-disable-next-line no-undef
@@ -31,7 +35,12 @@ const Contact = () => {
           {" "}
           <AiOutlineSearch className="icone-search" />{" "}
         </label>
-        <input type="text" id="search-box" placeholder="search" />
+        <input
+          type="text"
+          id="search-box"
+          placeholder="search"
+          onChange={handleSeach}
+        />
       </div>
       <div className="list-contact">
         <div className="titre-recent">
@@ -46,13 +55,20 @@ const Contact = () => {
             width={175}
           />
         ) : (
-          users.map((data, index) => {
-            return (
-              <div className="info-contact" key={index}>
-                <UserContact usercontact={data.username} recentId={data._id} />
-              </div>
-            )
-          })
+          users
+            .filter((data) => {
+              return data.username.includes(searchTerm)
+            })
+            .map((data, index) => {
+              return (
+                <div className="info-contact" key={index}>
+                  <UserContact
+                    usercontact={data.username}
+                    recentId={data._id}
+                  />
+                </div>
+              )
+            })
         )}
       </div>
     </div>

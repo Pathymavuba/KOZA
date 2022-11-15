@@ -19,6 +19,7 @@ const Mainsection = () => {
     message,
   } = useContext(myContext)
   const [loadRecentConversation, setLoadRecentConversation] = useState(true)
+ 
 
   useEffect(() => {
     axios({
@@ -56,7 +57,7 @@ const Mainsection = () => {
             height={467}
             width={175}
           />
-        ) : (
+        ) : ( 
           conversationRecent.map((conversation, index) => {
             return (
               <RecentConversation
