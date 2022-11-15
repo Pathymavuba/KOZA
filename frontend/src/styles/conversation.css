@@ -67,7 +67,8 @@
     margin-top:.3rem;
     height:63%;
     padding: 15px 0px;
-    overflow-y:auto
+    overflow-y:auto;
+    overflow-x: hidden;
 }
 
 .messagesended {
@@ -78,7 +79,7 @@
 }
 .messagereceived, .messagesended {
     max-width: 40%;
-    min-width: 25%;
+    min-width: auto;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
@@ -89,10 +90,12 @@
     border-radius: 10px;
     padding: 10px;
     font-size:1.4rem;
+    overflow-wrap: break-word;   
 }
 .messagesended .message {
     background: var(--blue);
     color: white;
+    overflow-wrap: break-word;   
 }
 .discussion .timestamp {
     color: rgb(182, 182, 182);

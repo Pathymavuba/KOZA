@@ -3,7 +3,7 @@ const mongoose = require('../config/db_connection')
 userSchema = mongoose.Schema({
     username:{  
         type:String,
-        required:true,
+        required:false,
         unique:true
     },
     password:{
