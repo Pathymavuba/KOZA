@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import React from "react"
+import React, { useState } from "react"
 import "../styles/mainsection.css"
 import { AiOutlineSearch } from "react-icons/ai"
-
+import ReactLoading from "react-loading"
 import { useContext } from "react"
 import { useEffect } from "react"
 import axios from "axios"
@@ -18,6 +18,7 @@ const Mainsection = () => {
     // eslint-disable-next-line no-unused-vars
     message,
   } = useContext(myContext)
+  const [loadRecentConversation, setLoadRecentConversation] = useState(true)
 
   useEffect(() => {
     axios({
@@ -28,7 +29,7 @@ const Mainsection = () => {
     })
       .then((res) => {
         setConversationRecent(res.data)
-        console.log(res.data,"ok")
+        setLoadRecentConversation(!loadRecentConversation)
       })
       .catch((err) => console.log(err))
   }, [token, userId])
@@ -47,29 +48,39 @@ const Mainsection = () => {
           <h4>Recent</h4>
         </div>
 
-        {conversationRecent.map((conversation, index) => {
-          return (
-            <RecentConversation
-              key={index}
-              recentId={
-                conversation.members[0]._id === userId
-                  ? conversation.members[1]._id
-                  : conversation.members[0]._id
-              }
-              name={
-                conversation.members[0]._id === userId
-                  ? conversation.members[1].username
-                  : conversation.members[0].username
-              }
-              profile={
-                conversation.members[0]._id === userId
-                ? conversation.members[1].profile
-                : conversation.members[0].profile
-              }
-              // lastmessage="ça va?"
-            />
-          )
-        })}
+        {loadRecentConversation ? (
+          <ReactLoading
+            className="loader"
+            type="bubbles"
+            color="blue"
+            height={467}
+            width={175}
+          />
+        ) : (
+          conversationRecent.map((conversation, index) => {
+            return (
+              <RecentConversation
+                key={index}
+                recentId={
+                  conversation.members[0]._id === userId
+                    ? conversation.members[1]._id
+                    : conversation.members[0]._id
+                }
+                name={
+                  conversation.members[0]._id === userId
+                    ? conversation.members[1].username
+                    : conversation.members[0].username
+                }
+                profile={
+                  conversation.members[0]._id === userId
+                    ? conversation.members[1].profile
+                    : conversation.members[0].profile
+                }
+                // lastmessage="ça va?"
+              />
+            )
+          })
+        )}
       </div>
     </div>
   )

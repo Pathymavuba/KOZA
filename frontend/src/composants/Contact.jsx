@@ -1,13 +1,15 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "../styles/contact.css"
 import { AiOutlineSearch } from "react-icons/ai"
 import axios from "axios"
 import { myContext } from "../Mycontext"
 import { useContext } from "react"
 import UserContact from "./UserContact"
+import ReactLoading from "react-loading"
 
 const Contact = () => {
   const { users, userId, setUsers, token } = useContext(myContext)
+  const [loadContact, setLoadContact] = useState(true)
 
   useEffect(() => {
     axios
@@ -17,6 +19,7 @@ const Contact = () => {
       })
       .then((users) => {
         setUsers(users.data.users)
+        setLoadContact(!loadContact)
       })
       .catch((err) => console.log(err))
   }, [token])
@@ -34,13 +37,23 @@ const Contact = () => {
         <div className="titre-recent">
           <h2>All users</h2>
         </div>
-        {users.map((data, index) => {
-          return (
-            <div className="info-contact" key={index}>
-              <UserContact usercontact={data.username} recentId={data._id} />
-            </div>
-          )
-        })}
+        {loadContact ? (
+          <ReactLoading
+            className="loader"
+            type="bubbles"
+            color="blue"
+            height={467}
+            width={175}
+          />
+        ) : (
+          users.map((data, index) => {
+            return (
+              <div className="info-contact" key={index}>
+                <UserContact usercontact={data.username} recentId={data._id} />
+              </div>
+            )
+          })
+        )}
       </div>
     </div>
   )
