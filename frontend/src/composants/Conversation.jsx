@@ -12,7 +12,6 @@ import { io } from "socket.io-client"
 import { useRef } from "react"
 import { BsFillEmojiSmileFill } from "react-icons/bs"
 import Picker from "emoji-picker-react"
-import ReactLoading from "react-loading"
 
 const Conversation = () => {
   const {
@@ -183,7 +182,6 @@ const Conversation = () => {
     })
       .then((item) => {
         setMessage(item.data)
-        setLoadMessage(!loadMessage)
       })
       .catch((err) => console.log(err))
   }, [conversationId, textsended, message])
@@ -202,40 +200,30 @@ const Conversation = () => {
       </div>
 
       <div className="discussion">
-        {loadMessage ? (
-          <ReactLoading
-            className="loader"
-            type="bubbles"
-            color="blue"
-            height={467}
-            width={175}
-          />
-        ) : (
-          message.map((messages) => {
-            let statutStyle =
-              messages.senderId !== userId ? "messagereceived" : "messagesended"
-            let d = new Date(messages.createdAt)
-            let date =
-              d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()
+        {message.map((messages) => {
+          let statutStyle =
+            messages.senderId !== userId ? "messagereceived" : "messagesended"
+          let d = new Date(messages.createdAt)
+          let date =
+            d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()
 
-            return (
-              // eslint-disable-next-line react/jsx-key
-              <div className={statutStyle} style={{ gap: ".5rem" }}>
-                <div>
-                  {messages.imagUrl && (
-                    <img
-                      src={`${messages.imagUrl}`}
-                      alt="imag"
-                      style={{ width: "300px", heigth: "120px" }}
-                    />
-                  )}
-                </div>
-                <div className="message">{messages.text}</div>
-                <div className="timestamp">{date}</div>
+          return (
+            // eslint-disable-next-line react/jsx-key
+            <div className={statutStyle} style={{ gap: ".5rem" }}>
+              <div>
+                {messages.imagUrl && (
+                  <img
+                    src={`${messages.imagUrl}`}
+                    alt="imag"
+                    style={{ width: "300px", heigth: "120px" }}
+                  />
+                )}
               </div>
-            )
-          })
-        )}
+              <div className="message">{messages.text}</div>
+              <div className="timestamp">{date}</div>
+            </div>
+          )
+        })}
       </div>
 
       <div className="bottom-last"> </div>
