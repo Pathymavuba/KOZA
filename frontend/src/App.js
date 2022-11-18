@@ -14,6 +14,7 @@ import axios from "axios"
 const App = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [token, setToken] = useState("")
   const [users, setUsers] = useState([])
   const [userId, setUserId] = useState("")
@@ -80,6 +81,8 @@ const App = () => {
           user,
           showConversation,
           setSchowConversation,
+          confirmPassword,
+          setConfirmPassword,
         }}
       >
         <Routes>

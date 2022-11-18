@@ -14,17 +14,33 @@
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.login-image{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-
+    align-items: center;
+}
+.login-image h1{
+    font-size: 50px;
+    color: #1966ff;  
+}
+.login-image p{
+    font-size: 15px;
+    color:gray;
+}
+.login-image img{
+    width: 400px;
+    height: 400px;
 }
 .card_login{
-    margin-top:5rem;
     background:#ffff;
     border:1px solid white;
-    height: 80%;
-    width: 35%;
-    border-radius: 1rem; 
-    box-shadow:var(--box-shadow)
+    width: 50%;   
 }
 form{
     width:100%;
@@ -33,22 +49,24 @@ form{
     flex-direction:column;
     justify-content: center;
     align-items: center;
-   gap: 5rem;
+   gap: 3rem;
 }
 input{
-    width:80%;
-    height:10%;
+    width:50%;
+    height:7%;
     border-radius:.7rem;
 }
 input[type="text"]{
     font-size:1.5rem;
     padding:1rem;
     outline-color:var(--blue);
+    border: 1px solid var(--blue);
 }
 input[type="password"]{
     font-size:1.5rem;
     padding:1rem;
     outline-color:var(--blue);
+    border: 1px solid var(--blue);
 }
 input[type="button"]{
     font-size:1.5rem;
@@ -56,6 +74,22 @@ input[type="button"]{
     cursor: pointer;
     color: #ffff;
     
+}
+
+.button-uppload{
+  width: 50%;
+  height: 5%;
+}
+label {
+    position:relative;
+    left: 50;
+    font-size: 15px;
+    cursor: pointer;
+}
+#avatar{
+    width:80%;
+    height: 10%;
+    display: none;
 }
 .btn-signup{
     background:var(--blue);

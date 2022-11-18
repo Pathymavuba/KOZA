@@ -5,10 +5,14 @@ import axios from "axios"
 import { useContext } from "react"
 import { myContext } from "../Mycontext"
 import { useNavigate } from "react-router-dom"
+import person from "../assets/Chatting-pana.png"
+import { useState } from "react"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const Login = () => {
   const { username, setUsername, password, setPassword, setToken } =
     useContext(myContext)
+  const [error, SetError] = useState(false)
   // eslint-disable-next-line no-undef
   const login_url = `${process.env.REACT_APP_URL_BACKEND}/login`
   const navigate = useNavigate()
@@ -29,13 +33,24 @@ const Login = () => {
       })
       .catch((err) => {
         console.log("userComperror", err)
+        SetError(!error)
       })
   }
 
   return (
     <div className="login">
+      <div className="login-image">
+        <h1>Koza</h1>
+        <p>Koza helps you connect and share with people in your life</p>
+        <img src={person} alt="" />
+      </div>
       <div className="card_login">
         <form action="">
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              Your password is not correct or user doesnt exist!
+            </div>
+          )}
           <input
             type="text"
             placeholder="username"
