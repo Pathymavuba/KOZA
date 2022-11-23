@@ -2,7 +2,6 @@
 import React, { useState } from "react"
 import "../styles/mainsection.css"
 import { AiOutlineSearch } from "react-icons/ai"
-// import ReactLoading from "react-loading"
 import { useContext } from "react"
 import { useEffect } from "react"
 import axios from "axios"
@@ -52,11 +51,6 @@ const Mainsection = () => {
           <h4>Recent</h4>
         </div>
 
-        {/* {loadRecentConversation ? (
-         <Skeleton variant="circular">
-          <Avatar />
-         </Skeleton>
-        ) : (  */}
           {conversationRecent.map((conversation, index) => {
             return(
               loadRecentConversation ?(<div style={{width:"100%"}}>

@@ -12,6 +12,8 @@ import { io } from "socket.io-client"
 import { useRef } from "react"
 import { BsFillEmojiSmileFill } from "react-icons/bs"
 import Picker from "emoji-picker-react"
+import CircularProgress from "@mui/material/CircularProgress"
+import Box from "@mui/material/Box"
 
 const Conversation = () => {
   const {
@@ -37,6 +39,7 @@ const Conversation = () => {
   const [loadMessage, setLoadMessage] = useState(true)
   const socket = useRef()
   const inputRef = useRef()
+  const [loaderConversation, setLoaderConversation] = useState(true)
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -146,7 +149,7 @@ const Conversation = () => {
         members: [userId, otherId],
       },
     })
-      .then(() => console.log("conversation created"))
+      .then(() => console.log("conversation created or already created"))
       .catch((err) => console.log(err))
   }, [userId, otherId])
   useEffect(() => {
@@ -158,7 +161,6 @@ const Conversation = () => {
     })
       .then((item) => {
         setConversationId(item.data._id)
-
         item.data.members[0]._id === otherId
           ? setUserConversation(item.data.members[0].username)
           : setUserConversation(item.data.members[1].username)
@@ -182,9 +184,14 @@ const Conversation = () => {
     })
       .then((item) => {
         setMessage(item.data)
+        setLoaderConversation(false)
       })
       .catch((err) => console.log(err))
   }, [conversationId, textsended, message])
+  // useEffect(() => {
+  //   setTimeout(() => setLoaderConversation(false), 3000)
+  // }, [conversationId])
+  useEffect(() => console.log("blaise", loaderConversation), [conversationId])
 
   return (
     <div className="conversation">
@@ -198,33 +205,49 @@ const Conversation = () => {
         </div>
         <div className="bottom"></div>
       </div>
+      {loaderConversation ? (
+        <div className="discussion">
+          {" "}
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20%",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        </div>
+      ) : (
+        <div className="discussion">
+          {message.map((messages) => {
+            let statutStyle =
+              messages.senderId !== userId ? "messagereceived" : "messagesended"
+            let d = new Date(messages.createdAt)
+            let date =
+              d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()
 
-      <div className="discussion">
-        {message.map((messages) => {
-          let statutStyle =
-            messages.senderId !== userId ? "messagereceived" : "messagesended"
-          let d = new Date(messages.createdAt)
-          let date =
-            d.getHours() + ":" + d.getMinutes() + ", " + d.toDateString()
-
-          return (
-            // eslint-disable-next-line react/jsx-key
-            <div className={statutStyle} style={{ gap: ".5rem" }}>
-              <div>
-                {messages.imagUrl && (
-                  <img
-                    src={`${messages.imagUrl}`}
-                    alt="imag"
-                    style={{ width: "300px", heigth: "120px" }}
-                  />
-                )}
+            return (
+              // eslint-disable-next-line react/jsx-key
+              <div className={statutStyle} style={{ gap: ".5rem" }}>
+                <div>
+                  {messages.imagUrl && (
+                    <img
+                      src={`${messages.imagUrl}`}
+                      alt="imag"
+                      style={{ width: "300px", heigth: "120px" }}
+                    />
+                  )}
+                </div>
+                <div className="message">{messages.text}</div>
+                <div className="timestamp">{date}</div>
               </div>
-              <div className="message">{messages.text}</div>
-              <div className="timestamp">{date}</div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      )}
 
       <div className="bottom-last"> </div>
 
