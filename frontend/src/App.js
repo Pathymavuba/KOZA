@@ -25,11 +25,11 @@ const App = () => {
   const [textsended, setTextsended] = useState("")
   const [user, setUser] = useState({})
   const [showConversation, setSchowConversation] = useState(false)
+  const [loadermain, setLoadermain] = useState(true)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log("ton token", token)
     setToken(localStorage.getItem("token"))
     setUserId(localStorage.getItem("userId"))
   }, [token])
@@ -53,6 +53,7 @@ const App = () => {
     window.localStorage.removeItem("profileUser")
     setSchowConversation(false)
     navigate("/accueil/login")
+    setLoadermain(true)
   }
 
   return (
@@ -83,6 +84,8 @@ const App = () => {
           setSchowConversation,
           confirmPassword,
           setConfirmPassword,
+          loadermain,
+          setLoadermain,
         }}
       >
         <Routes>

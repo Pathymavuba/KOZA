@@ -86,3 +86,23 @@
     position: relative;
     left:5.2rem;  
 }
+
+@media screen and (min-width:1600px){
+
+    .btn_message{
+        width:74.5%;
+    }
+    .btn_user{
+        width:74.5%;
+
+    }
+    .barre{
+        left: 17rem;
+    }
+    .icones{
+        font-size:4rem;
+        left:.4rem;
+        top:.15rem
+    }
+
+}

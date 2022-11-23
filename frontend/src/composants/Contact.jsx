@@ -5,7 +5,9 @@ import axios from "axios"
 import { myContext } from "../Mycontext"
 import { useContext } from "react"
 import UserContact from "./UserContact"
-import ReactLoading from "react-loading"
+// import ReactLoading from "react-loading"
+import Skeleton from "@mui/material/Skeleton"
+import Typography from "@mui/material/Typography"
 
 const Contact = () => {
   const { users, userId, setUsers, token } = useContext(myContext)
@@ -46,30 +48,27 @@ const Contact = () => {
         <div className="titre-recent">
           <h2>All users</h2>
         </div>
-        {loadContact ? (
-          <ReactLoading
-            className="loader"
-            type="bubbles"
-            color="blue"
-            height={467}
-            width={175}
-          />
-        ) : (
-          users
-            .filter((data) => {
-              return data.username.includes(searchTerm)
-            })
-            .map((data, index) => {
-              return (
-                <div className="info-contact" key={index}>
-                  <UserContact
-                    usercontact={data.username}
-                    recentId={data._id}
-                  />
+        {users
+          .filter((data) => {
+            return data.username.includes(searchTerm)
+          })
+          .map((data, index) => {
+            return loadContact ? (
+              <div style={{ width: "100%" }}>
+                <div className="profile-message" style={{ marginTop: "5%" }}>
+                  <Skeleton width="80%">
+                    {" "}
+                    <Typography>.</Typography>
+                  </Skeleton>
                 </div>
-              )
-            })
-        )}
+                <div className="bordure"></div>
+              </div>
+            ) : (
+              <div className="info-contact" key={index}>
+                <UserContact usercontact={data.username} recentId={data._id} />
+              </div>
+            )
+          })}
       </div>
     </div>
   )

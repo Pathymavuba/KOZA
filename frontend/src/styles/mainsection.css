@@ -58,7 +58,7 @@
     border-radius: 1rem;
     margin-top:2rem;
     box-shadow:var(--box-shadow);
-    overflow-y:auto
+    overflow-y:auto;
     
 }
 .titre-recent{
@@ -86,7 +86,8 @@
 }
 
 .profile-message .username{
-    padding-top:1rem;
+    padding-top:2rem;
+    margin-top: 2rem;
 }
 .bordure{
     width:37rem;
@@ -95,5 +96,5 @@
     margin-top: 1rem;
 }
 .loader{
-    margin: 50px 5px ;
+    margin: 0 ;
 }

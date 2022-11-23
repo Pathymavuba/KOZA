@@ -10,8 +10,14 @@ import { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 const Login = () => {
-  const { username, setUsername, password, setPassword, setToken } =
-    useContext(myContext)
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    setToken,
+    // setLoadermain,
+  } = useContext(myContext)
   const [error, SetError] = useState(false)
   // eslint-disable-next-line no-undef
   const login_url = `${process.env.REACT_APP_URL_BACKEND}/login`
@@ -29,6 +35,8 @@ const Login = () => {
         localStorage.setItem("userId", user.data.payload.id)
         localStorage.setItem("profileUser", user.data.payload.profile)
         setToken(localStorage.getItem("token"))
+        // setLoadermain(false)
+        // setTimeout(() => setLoadermain(false), 5000)
         navigate("/accueil/koza")
       })
       .catch((err) => {
@@ -54,13 +62,19 @@ const Login = () => {
           <input
             type="text"
             placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value)
+              SetError(false)
+            }}
           />
 
           <input
             type="password"
             placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              SetError(false)
+            }}
           />
 
           <input

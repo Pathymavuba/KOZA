@@ -95,4 +95,12 @@ label {
     background:var(--blue);
     border: 1px solid var(--blue);
 }
-
+.alert-danger{
+    height:10%; 
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
