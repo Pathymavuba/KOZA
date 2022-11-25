@@ -21,8 +21,6 @@ const Mainsection = () => {
     message,
   } = useContext(myContext)
   const [loadRecentConversation, setLoadRecentConversation] = useState(true)
- 
-
   useEffect(() => {
     axios({
       method: "GET",
@@ -36,7 +34,7 @@ const Mainsection = () => {
       })
       .catch((err) => console.log(err))
   }, [token, userId])
-
+  
   return (
     <div className="mainsection">
       <div className="seachbar">
@@ -46,7 +44,7 @@ const Mainsection = () => {
         </label>
         <input type="text" id="search-box" placeholder="search" />
       </div>
-      <div className="listmessage">
+      {conversationRecent.length===0 ? <div className="conversation-none"><div><h1>No Recent conversations</h1></div></div> : <div className="listmessage">
         <div className="titre-recent">
           <h4>Recent</h4>
         </div>
@@ -83,7 +81,45 @@ const Mainsection = () => {
             )
           })
         }
-      </div>
+      </div>}
+      {/* <div className="listmessage">
+        <div className="titre-recent">
+          <h4>Recent</h4>
+        </div>
+
+          {conversationRecent.map((conversation, index) => {
+            return(
+              loadRecentConversation ?(<div style={{width:"100%"}}>
+              <div className="profile-message" style={{marginTop:"5%"}}><Skeleton variant="circular" width="10%" height="10%">
+              <Avatar />
+             </Skeleton> <Skeleton width="80%">
+              <Typography>.</Typography>
+            </Skeleton></div><div className="bordure"></div>
+            </div>) :(
+                <RecentConversation
+                  key={index}
+                  recentId={
+                    conversation.members[0]._id === userId
+                      ? conversation.members[1]._id
+                      : conversation.members[0]._id
+                  }
+                  name={
+                    conversation.members[0]._id === userId
+                      ? conversation.members[1].username
+                      : conversation.members[0].username
+                  }
+                  profile={
+                    conversation.members[0]._id === userId
+                      ? conversation.members[1].profile
+                      : conversation.members[0].profile
+                  }
+                  // lastmessage="ça va?"
+                />
+              )
+            )
+          })
+        }
+      </div> */}
     </div>
   )
 }

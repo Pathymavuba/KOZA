@@ -51,6 +51,18 @@
     cursor:pointer;
     margin-left: 1rem;
 }
+.conversation-none{
+    display: flex;
+    width: 100%;
+    height:52.5rem;
+    background:#fff ;
+    border-radius: 1rem;
+    margin-top:2rem;
+    box-shadow:var(--box-shadow);
+    overflow-y:auto;
+    justify-content:center;
+    align-items: center;
+}
 .listmessage{
     width: 100%;
     height:52.5rem;
