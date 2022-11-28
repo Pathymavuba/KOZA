@@ -1,15 +1,14 @@
 import React from "react"
 import "../styles/signup.css"
 import { Link } from "react-router-dom"
-import axios from "axios"
 import { useContext } from "react"
 import { myContext } from "../Mycontext"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import Profile from "../assets/profile.png"
 import person from "../assets/Chatting-pana.png"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { postImage } from "../utils/postImage"
+import { createAnewUser } from "../utils/createAnewUser"
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -39,75 +38,25 @@ const Signup = () => {
     if (profile) {
       let image = await postImage(profile)
       // eslint-disable-next-line no-undef
-      const createuser_url = `${process.env.REACT_APP_URL_BACKEND}/signup`
+      const uri = `${process.env.REACT_APP_URL_BACKEND}/signup`
       if (confirmPassword === password) {
-        axios
-          .post(createuser_url, {
-            username: username,
-            password: password,
-            profile: image.data.secure_url,
-          })
-          .then((data) => {
-            console.log(data)
-            // eslint-disable-next-line no-empty
-            axios({
-              method: "POST",
-              url: login_url,
-              data: { username: username, password: password },
-            })
-              .then((user) => {
-                console.log(user)
-                localStorage.setItem("token", user.data.token)
-                localStorage.setItem("userId", user.data.payload.id)
-                localStorage.setItem("profileUser", user.data.payload.profile)
-                setToken(localStorage.getItem("token"))
-                navigate("/accueil/koza")
-              })
-              .catch((err) => {
-                console.log("userComperror", err)
-              })
-
-            // navigate("/accueil/login")
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        createAnewUser(
+          uri,
+          username,
+          password,
+          login_url,
+          setToken,
+          navigate,
+          image
+        )
       } else {
         setError(!error)
       }
     } else {
       // eslint-disable-next-line no-undef
-      const createuser_url = `${process.env.REACT_APP_URL_BACKEND}/signup`
+      const uri = `${process.env.REACT_APP_URL_BACKEND}/signup`
       if (confirmPassword === password) {
-        axios
-          .post(createuser_url, {
-            username: username,
-            password: password,
-            profile: Profile,
-          })
-          .then((data) => {
-            console.log(data)
-            // navigate("/accueil/login")
-            axios({
-              method: "POST",
-              url: login_url,
-              data: { username: username, password: password },
-            })
-              .then((user) => {
-                console.log(user)
-                localStorage.setItem("token", user.data.token)
-                localStorage.setItem("userId", user.data.payload.id)
-                localStorage.setItem("profileUser", user.data.payload.profile)
-                setToken(localStorage.getItem("token"))
-                navigate("/accueil/koza")
-              })
-              .catch((err) => {
-                console.log("userComperror", err)
-              })
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+        createAnewUser(uri, username, password, login_url, setToken, navigate)
       } else {
         setError(!error)
       }
