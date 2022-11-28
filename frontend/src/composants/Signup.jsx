@@ -25,7 +25,7 @@ const Signup = () => {
   // eslint-disable-next-line no-undef
   const login_url = `${process.env.REACT_APP_URL_BACKEND}/login`
   const [profile, setProfile] = useState()
-  const [error, SetError] = useState(false)
+  const [error, setError] = useState(false)
 
   const handleProfile = (imageProfile) => {
     if (imageProfile) {
@@ -81,9 +81,9 @@ const Signup = () => {
           .catch(function (error) {
             console.log(error)
           })
+      } else {
+        setError(!error)
       }
-      console.log("confirm bien ton mot de pass")
-      SetError(!error)
     } else {
       // eslint-disable-next-line no-undef
       const createuser_url = `${process.env.REACT_APP_URL_BACKEND}/signup`
@@ -117,9 +117,9 @@ const Signup = () => {
           .catch(function (error) {
             console.log(error)
           })
+      } else {
+        setError(!error)
       }
-      console.log("confirm login mot de pass")
-      SetError(!error)
     }
   }
 
@@ -148,7 +148,7 @@ const Signup = () => {
             placeholder="password"
             onChange={(e) => {
               setPassword(e.target.value)
-              SetError(false)
+              setError(false)
             }}
           />
           <input
@@ -156,7 +156,7 @@ const Signup = () => {
             placeholder="confirm password"
             onChange={(e) => {
               setConfirmPassword(e.target.value)
-              SetError(false)
+              setError(false)
             }}
           />
           <div className="button-uppload">
