@@ -9,6 +9,7 @@ import { useState } from "react"
 import Profile from "../assets/profile.png"
 import person from "../assets/Chatting-pana.png"
 import "bootstrap/dist/css/bootstrap.min.css"
+import { postImage } from "../utils/postImage"
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -36,17 +37,7 @@ const Signup = () => {
   const createUser = async (e) => {
     e.preventDefault()
     if (profile) {
-      const formData = new FormData()
-      formData.append("file", profile)
-      // eslint-disable-next-line no-undef
-      formData.append("upload_preset", "pathymavuba")
-
-      let image = await axios({
-        method: "POST",
-        // eslint-disable-next-line no-undef
-        url: `${process.env.REACT_APP_URL_CLOUDINARY}`,
-        data: formData,
-      })
+      let image = await postImage(profile)
       // eslint-disable-next-line no-undef
       const createuser_url = `${process.env.REACT_APP_URL_BACKEND}/signup`
       if (confirmPassword === password) {
